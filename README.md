@@ -173,3 +173,7 @@ These pages are educational and contain compliance-aware language. Final content
 - Version 19 adds production-quality SEO, accessibility, performance, compliance, and resource-center foundations.
 - All legal, licensing, and policy content remains placeholder material pending qualified review.
 - Replace `https://www.example.com` with the final production domain before launch.
+
+- Version 20 is the launch-foundation release.
+- It includes service-worker support, analytics hooks, security configuration examples, launch documentation, QA documentation, and deployment status tracking.
+- The site is still a static demonstration until the CRM, scheduler, secure application, production domain, and approved compliance content are connected.

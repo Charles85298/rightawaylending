@@ -91,3 +91,21 @@
 - Legal and compliance review of policy and disclosure pages
 - Confirm licensed states, branch information, and regulator disclosures
 - Add approved analytics, consent, and cookie configuration
+
+## Completed in Website v20
+- Service worker and offline fallback
+- Analytics and conversion event hooks
+- Security header examples
+- Launch readiness dashboard
+- Launch checklist
+- Responsive QA matrix
+- CRM, scheduler, and analytics integration guide
+- File integrity hashes
+
+## Final blockers before launch
+- Production domain
+- Approved legal and compliance content
+- CRM and secure application destination
+- Scheduling platform
+- Approved analytics identifiers
+- Final business details and testimonials

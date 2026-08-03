@@ -1642,3 +1642,39 @@ a{text-underline-offset:3px}
 }
 
 .compliance-links{display:flex;gap:16px;flex-wrap:wrap;padding-top:14px;color:#b9c9d8;font-size:.78rem}
+
+
+/* ---------- Version 20 launch dashboard ---------- */
+.launch-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:16px;
+}
+.launch-card{
+  border:1px solid var(--line);
+  border-radius:20px;
+  background:var(--surface);
+  padding:24px;
+  box-shadow:var(--ral-shadow-sm);
+}
+.launch-card>span{
+  display:inline-flex;
+  padding:5px 9px;
+  border-radius:999px;
+  font-size:.7rem;
+  font-weight:900;
+  text-transform:uppercase;
+  letter-spacing:.08em;
+}
+.launch-card.complete>span{
+  background:color-mix(in srgb,var(--green) 14%,var(--surface));
+  color:var(--green-2);
+}
+.launch-card.pending>span{
+  background:color-mix(in srgb,#f4a300 14%,var(--surface));
+  color:#9a6300;
+}
+.launch-card h3{margin:15px 0 8px}
+.launch-card p{color:var(--muted);font-size:.88rem}
+@media(max-width:1000px){.launch-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:600px){.launch-grid{grid-template-columns:1fr}}
