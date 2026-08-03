@@ -3,14 +3,28 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="description" content="Interactive mortgage affordability and payment calculator from Right Away Lending.">
+<meta name="description" content="Estimate affordability and monthly housing payments with an interactive mortgage calculator and branded PDF report.">
 <meta name="theme-color" content="#002244">
 <title>Mortgage Affordability Calculator | Right Away Lending</title>
 <link rel="icon" href="images/logo-transparent.png" type="image/png">
 <link rel="stylesheet" href="css/tokens.css">
 <link rel="stylesheet" href="css/styles.css">
+
+<link rel="canonical" href="https://www.example.com/affordability-calculator.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Mortgage Affordability Calculator | Right Away Lending">
+<meta property="og:description" content="Estimate affordability and monthly housing payments with an interactive mortgage calculator and branded PDF report.">
+<meta property="og:url" content="https://www.example.com/affordability-calculator.html">
+<meta property="og:image" content="https://www.example.com/assets/social-preview.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Mortgage Affordability Calculator | Right Away Lending">
+<meta name="twitter:description" content="Estimate affordability and monthly housing payments with an interactive mortgage calculator and branded PDF report.">
+<link rel="preload" href="images/hero-home.jpg" as="image">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": ["Organization", "FinancialService"], "name": "Right Away Lending", "url": "https://www.example.com", "logo": "https://www.example.com/images/logo-transparent.png", "telephone": "+1-602-465-2800", "areaServed": "Arizona", "identifier": "NMLS #2412327", "address": {"@type": "PostalAddress", "addressLocality": "Phoenix", "addressRegion": "AZ", "addressCountry": "US"}}</script>
+
 </head>
 <body>
+<a class="skip-link" href="#main-content">Skip to main content</a>
 <div class="topbar"><div class="wrap"><span>Serving Arizona homebuyers with transparent mortgage guidance.</span><span>☎ (602) 465-2800 &nbsp; • &nbsp; NMLS #2412327</span></div></div>
 <header class="header">
  <div class="wrap nav">
@@ -21,14 +35,14 @@
   <div class="actions">
    <a class="phone" href="tel:+16024652800"><b>(602) 465-2800</b></a>
    <button class="theme" id="theme" aria-label="Toggle light and dark theme">☼</button>
-   <a class="btn btn-primary" href="index.html#contact">Get Pre-Qualified</a>
+   <a class="btn btn-primary" href="prequalify.html">Get Pre-Qualified</a>
    <button class="menu" id="menu" aria-expanded="false" aria-label="Open menu">☰</button>
   </div>
  </div>
- <nav class="mobilemenu" id="mobilemenu"><a href="index.html">Home</a><a href="index.html#programs">Loan Programs</a><a href="first-time-buyers.html">First-Time Buyers</a><a href="homebuyer-guide.html">Resources</a><a href="index.html#contact">Get Pre-Qualified</a></nav>
+ <nav class="mobilemenu" id="mobilemenu"><a href="index.html">Home</a><a href="index.html#programs">Loan Programs</a><a href="first-time-buyers.html">First-Time Buyers</a><a href="homebuyer-guide.html">Resources</a><a href="prequalify.html">Get Pre-Qualified</a></nav>
 </header>
 
-<main>
+<main id="main-content">
 <section class="page-hero"><div class="wrap">
  <div class="breadcrumbs"><a href="index.html">Home</a> / <a href="first-time-buyers.html">First-Time Buyers</a> / Calculator</div>
  <div class="eyebrow">Interactive mortgage calculator</div>
@@ -103,18 +117,18 @@
 </div></section>
 
 <section class="pdf-report" id="pdfReport">
- <header class="pdf-report-header"><img src="images/logo-transparent.png" alt="Right Away Lending"><div><h1>Mortgage Calculator Summary</h1><p>Right Away Lending · NMLS #2412327</p></div></header>
+ <header class="pdf-report-header"><img src="images/logo-transparent.png" alt="Right Away Lending" loading="lazy" decoding="async"><div><h1>Mortgage Calculator Summary</h1><p>Right Away Lending · NMLS #2412327</p></div></header>
  <div class="pdf-report-meta"><div><span>Report date</span><strong id="pdfDate"></strong></div><div><span>Calculator mode</span><strong id="pdfMode"></strong></div></div>
  <section class="pdf-report-section"><h2>Your inputs</h2><div class="pdf-input-grid" id="pdfInputs"></div></section>
  <section class="pdf-report-section pdf-highlight"><div><span id="pdfPrimaryLabel">Estimated result</span><strong id="pdfPrimaryValue"></strong></div><p id="pdfPrimarySummary"></p></section>
  <section class="pdf-report-section"><h2>Result details</h2><div class="pdf-detail-list" id="pdfDetails"></div></section>
  <section class="pdf-report-section pdf-disclosure"><h2>Important information</h2><p>This report is an educational illustration only. It is not a rate quote, approval, pre-approval, commitment to lend, or complete estimate of housing costs.</p></section>
- <footer class="pdf-report-footer"><div><strong>Right Away Lending</strong><span>Phoenix, Arizona</span><span>(602) 465-2800</span></div><div><span>NMLS #2412327</span><span>Equal Housing Opportunity</span></div></footer>
+ <footer class="pdf-report-footer"><div><strong>Right Away Lending</strong><span>Phoenix, Arizona</span><span>(602) 465-2800</span></div><div><span>NMLS #2412327</span><span>Equal Housing Opportunity</span></div><div class="wrap compliance-links"><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a><a href="accessibility.html">Accessibility</a><a href="licensing.html">Licensing</a></div></footer>
 </section>
 </main>
 
 <footer><div class="wrap foot">
- <div><img src="images/logo-transparent.png" alt="Right Away Lending"><p>Friendly, transparent mortgage guidance for homebuyers.</p></div>
+ <div><img src="images/logo-transparent.png" alt="Right Away Lending" loading="lazy" decoding="async"><p>Friendly, transparent mortgage guidance for homebuyers.</p></div>
  <div><h3>Company</h3><a href="index.html#about">About</a><a href="index.html#reviews">Reviews</a><a href="index.html#contact">Contact</a></div>
  <div><h3>Resources</h3><a href="first-time-buyers.html">First-Time Buyers</a><a href="homebuyer-guide.html">Homebuyer Guide</a><a href="document-checklist.html">Document Checklist</a></div>
  <div><h3>Contact</h3><a href="tel:+16024652800">(602) 465-2800</a><span>Phoenix, Arizona</span><span>NMLS #2412327</span></div>

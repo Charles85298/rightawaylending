@@ -159,3 +159,17 @@ These pages are educational and contain compliance-aware language. Final content
   - `ui-components.html`
   - `documents/Design-System-v17.md`
   - Standardized focus states, hover interactions, motion reduction, and shared design tokens
+
+- Version 18 adds lead-generation infrastructure:
+  - `prequalify.html`
+  - `schedule.html`
+  - `buyer-guide.html`
+  - Multi-step inquiry flow with validation
+  - Scheduling platform placeholder
+  - Lead-magnet capture interface
+  - Updated homepage and navigation CTAs
+  - No personal data is transmitted until a CRM or secure application is connected
+
+- Version 19 adds production-quality SEO, accessibility, performance, compliance, and resource-center foundations.
+- All legal, licensing, and policy content remains placeholder material pending qualified review.
+- Replace `https://www.example.com` with the final production domain before launch.
