@@ -69,3 +69,25 @@
 - Interactive Document Checklist
 - Searchable Mortgage Glossary
 - Educational Affordability Calculator
+
+## Completed in Website v18
+- Multi-step pre-qualification inquiry page
+- Scheduling integration placeholder page
+- First-time buyer guide lead-magnet page
+- Homepage CTA and floating-action updates
+
+## Completed in Website v19
+- SEO metadata and canonical URL framework
+- Organization / FinancialService structured data
+- Skip links and accessibility improvements
+- Privacy, Terms, Accessibility, and Licensing placeholder pages
+- Resource Center and four educational articles
+- 500, maintenance, and offline pages
+- Favicon, PWA icons, and social preview image
+- Updated robots.txt and sitemap.xml
+
+## Still required before launch
+- Replace example.com with the production domain
+- Legal and compliance review of policy and disclosure pages
+- Confirm licensed states, branch information, and regulator disclosures
+- Add approved analytics, consent, and cookie configuration

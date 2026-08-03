@@ -197,3 +197,67 @@ document.addEventListener('DOMContentLoaded',()=>{
   const floatingToggle=document.getElementById('floatingToggle'),floatingMenu=document.getElementById('floatingMenu');
   floatingToggle?.addEventListener('click',()=>{const open=floatingMenu.classList.toggle('open');floatingToggle.setAttribute('aria-expanded',String(open));floatingToggle.textContent=open?'×':'+'});
 });
+
+
+document.addEventListener('DOMContentLoaded',()=>{
+  const form=document.getElementById('prequalForm');
+  if(form){
+    const steps=[...form.querySelectorAll('.prequal-step')];
+    const progress=[...document.querySelectorAll('.prequal-progress span')];
+    const back=document.getElementById('prequalBack');
+    const next=document.getElementById('prequalNext');
+    const nav=document.getElementById('prequalNav');
+    const success=document.getElementById('prequalSuccess');
+    const answers={};
+    let current=1;
+
+    function draw(){
+      steps.forEach(step=>step.classList.toggle('active',Number(step.dataset.step)===current));
+      progress.forEach((bar,index)=>bar.classList.toggle('active',index<current));
+      back.hidden=current===1;
+      next.textContent=current===5?'Prepare My Inquiry':'Continue';
+    }
+
+    form.querySelectorAll('.prequal-options button').forEach(button=>{
+      button.addEventListener('click',()=>{
+        button.closest('.prequal-options').querySelectorAll('button').forEach(x=>x.classList.remove('selected'));
+        button.classList.add('selected');
+        answers[button.dataset.name]=button.dataset.value;
+      });
+    });
+
+    function validStep(){
+      const step=steps[current-1];
+      if(current<=2) return Boolean(step.querySelector('.selected'));
+      const required=[...step.querySelectorAll('[required]')];
+      let valid=true;
+      required.forEach(field=>{
+        if((field.type==='checkbox'&&!field.checked)||(!field.value)){
+          field.setAttribute('aria-invalid','true');valid=false;
+        }else field.removeAttribute('aria-invalid');
+      });
+      return valid;
+    }
+
+    next.addEventListener('click',()=>{
+      if(!validStep()) return;
+      if(current<5){current++;draw();window.scrollTo({top:form.offsetTop-110,behavior:'smooth'})}
+      else{
+        steps.forEach(step=>step.classList.remove('active'));
+        success.classList.add('active');
+        nav.hidden=true;
+        progress.forEach(bar=>bar.classList.add('active'));
+      }
+    });
+    back.addEventListener('click',()=>{if(current>1){current--;draw()}});
+    draw();
+  }
+
+  const guideForm=document.getElementById('guideForm');
+  guideForm?.addEventListener('submit',event=>{
+    event.preventDefault();
+    const button=guideForm.querySelector('button');
+    button.textContent='Guide request prepared';
+    button.disabled=true;
+  });
+});
