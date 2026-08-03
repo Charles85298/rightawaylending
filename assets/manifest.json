@@ -1,0 +1,9 @@
+{
+  "name": "Right Away Lending",
+  "short_name": "Right Away",
+  "start_url": "../index.html",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#002244",
+  "icons": []
+}

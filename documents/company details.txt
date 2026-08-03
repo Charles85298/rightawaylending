@@ -1,0 +1,379 @@
+This questionnaire defines your goals, expectations, and priorities for the Right Away Lending website.
+Phase 1 focuses on the landing page and core brand foundation: messaging, positioning, trust, and conversions.
+Future phases will expand into branding, content, local visibility, social media, and lead generation.
+There are no right or wrong answers. Your responses will align the vision before design, pricing, or a formal scope of work is prepared.
+
+ 
+PHASE 1: LANDING PAGE + BRAND FOUNDATION
+
+Section 1: Business Overview
+1. What does Right Away Lending do?
+Operates as an independent, third-party intermediary that matches homebuyers with wholesale lenders. Unlike direct lenders or retail banks, a broker company does not use its own money to fund loans and does not make underwriting decisions. Instead, they act as an outsourced sales and processing team, shopping a borrower’s file across dozens of different financial institutions to find the best interest rate and loan terms.
+The 4 Step Broker Workflow
+• Sourcing and Intake: The broker meets with the borrower, analyzes their credit, verifies their income, and packages their financial documents into a single loan file. 
+• Wholesale Shopping: The broker inputs the file into an automated pricing engine to compare wholesale rates from numerous backend lenders simultaneously.
+• Lender Submission: Once the client selects a loan program, the broker submits the file to that specific wholesale lender’s underwriting department.
+• Pipeline Processing: The broker’s internal processing team acts as a buffer, collecting missing documents from the borrower and pushing the lender to clear conditions for closing. 
+• Key Advantages of Using a Broker
+• Access to Wholesale Pricing: Brokers get volume-discounted interest rates from wholesale lenders that everyday consumers cannot access directly. 
+• One Application, Multiple Options: A borrower only needs to pull their credit score and submit paystubs once to compare programs across multiple banks.
+• Niche Product Availability: Brokers excel at matching non-traditional borrowers (like self-employed individuals or investors) with specialized products like bank statement loans or DSCR loans.
+• Lower Overhead Costs: Because broker shops don't maintain massive corporate real estate or complex capital requirements, they can often pass operational savings down via lower fees.
+
+
+
+2. What makes Right Away Lending different?
+Consider experience, speed, service, communication, and loan options.
+Experience, speed and service
+
+3. Why did you start or get involved?
+
+
+
+4. What should customers remember most?
+Friendly and transparent
+
+5. Biggest strengths
+☐ Mortgage experience   ☐ Fast response   ☐ Personal service   ☐ Competitive loans
+☐ Tough loan solutions   ☐ First-time buyers   ☐ VA loans   ☐ Realtor relationships
+☐ Investment lending   ☐ Communication   ☐ Fast closings   ☐ Reputation 
+
+6. Weaknesses or challenges?
+professionalism
+
+
+Section 2: Phase 1 Goals
+7. Main purpose of the landing page
+☐ Calls   ☐ Consultations   ☐ Applications   ☐ Credibility   ☐ Explain services
+☐ Realtor referrals   ☐ Branding   ☐ Advertising traffic   
+
+8. Top 3 goals
+Clean up footprint on internet
+Develop a clean landing page
+Obtain more business
+
+9. What should visitors do? (Call to Action)
+What specific action do you want visitors to take when they land on your site? For example: call, fill out a form, schedule a consultation, apply for a loan, or prequalify.
+Call, Apply, Prequalify, Text, Email, and Learn  
+
+10. Visitor outcome
+What should visitors understand, feel, and do after visiting?
+Apply, email, or call. They should have a good understanding of what options they have.
+
+11. 6–12 month goals
+What do you want the website to achieve over the next 6–12 months in terms of leads, growth, visibility, or business impact? Increase leads, growth and visbility
+
+
+Section 3: Target Customers
+12. Target demographic
+First-time buyers, repeat buyers, veterans, FHA, conventional, jumbo, refinance, investors, self-employed, credit-challenged, realtors, builders, or other groups.
+
+
+
+13. Service areas
+Florida · Michigan · Arizona · Washington · Texas
+
+
+14. Common concerns
+Lack of internet footprint
+
+15. Common questions
+Financial and Cost Questions
+• What will my exact monthly mortgage payment be? Borrowers want to know their total out-of-pocket monthly cost, including principal, interest, property taxes, home insurance, and private mortgage insurance (PMI).
+• How much money do I need for a down payment? Buyers frequently ask if they truly need a 20% down payment or if they qualify for low-down-payment programs like FHA (3.5%) or Conventional (3%).
+• What are my estimated closing costs? Borrowers need to know what lender fees, title fees, and escrow pre-paids will cost them at the closing table, which usually totals 2% to 5% of the loan amount.
+• Should I pay points to lower my interest rate? Clients want to know if buying discount points upfront makes long-term financial sense based on how long they plan to keep the home. 
+Qualification and Process Questions
+• What credit score do I need to get approved? Applicants want to know the minimum credit score required for different loan types and how their score impacts their interest rate.
+• How much home can I actually afford? Borrowers ask this to understand how lenders calculate their debt-to-income (DTI) ratio and to find their maximum purchase price comfort zone.
+• What documents do I need to provide? Buyers need a checklist of required items, usually encompassing W-2s, tax returns, pay stubs, and bank statements. 
+• How long does the mortgage approval process take? Borrowers ask this to coordinate their moving timelines and ensure they can meet the closing date written into their real estate contract.
+Strategy and Product Questions
+• Should I choose a fixed-rate or an adjustable-rate mortgage (ARM)? Borrowers weigh the long-term stability of a 30-year fixed loan against the short-term savings of an ARM.
+• What is the difference between pre-qualification and pre-approval? Buyers ask this to ensure they have a verified, heavyweight pre-approval letter before they start making offers on homes
+
+
+
+Section 4: Phase 1 Content
+16. Must-include items
+Name, Logo, License / NMLS, Contact information, Team,  Introduction, Loan products, Apply button, Form, Testimonials, Reviews, Licensing, Privacy, FAQs, Calculator
+
+17. Priority loan products
+Conventional, FHA, VA, jumbo, first-time buyer, refinance, investment property, USDA , 30 year fixed rate, 15 year fixed
+
+18. Loan presentation
+ Brief description of each 
+19. Main message
+Right Away Lending is a licensed mortgage broker serving Phoenix and throughout Arizona (NMLS #2412327). Unlike single-lender mortgage companies, we maintain relationships with multiple wholesale lenders, allowing us to shop rates and find the best match for your unique financial situation and goals.
+Our Phoenix-based team combines deep local market knowledge with modern technology to streamline the lending process. We handle the details so you can focus on finding your dream home or achieving your refinancing goals throughout the Phoenix metro area including Scottsdale, Mesa, Tempe, Chandler, and Glendale.
+Whether you are a first-time buyer, seasoned investor, or looking to refinance, we bring clarity and efficiency to every transaction. Our commitment is simple: treat each client as an individual, provide straight answers, and deliver results.
+
+
+20. Supporting messages
+We are committed to transparent service and fast processing
+
+21. Tagline?
+☐ Need one
+
+22. Words to include
+High-Volume Transactional Keywords
+These are the terms people search when they are actively looking to borrow money. They are heavily featured in website headers (H1/H2 tags), page titles, and meta descriptions: 
+• "Current mortgage interest rates" or "30-year fixed mortgage rates"
+• "Mortgage calculator" or "Home affordability calculator"
+• "Refinance home loan" or "Cash-out refinance"
+• "Mortgage pre-approval online"
+Core Loan Product Terms
+Lenders build dedicated landing pages for specific loan products to capture niche search traffic:
+• "FHA loans" / "Low down payment options"
+• "VA home loans" / "Military mortgage benefits"
+• "Conventional mortgage guidelines"
+• "Jumbo loan lender"
+• "First-time homebuyer assistance programs"
+Hyper-Local SEO Phrasing
+Because mortgage lending is highly regional, the most profitable keywords combine the service with geographic locations to capture local traffic:
+• "Mortgage broker in [City Name]" or "Best loan officer near me"
+• "Home loans in [Neighborhood Name]"
+• "[State] mortgage company reviews"
+• "FHA approved condos in [City Name]" 
+E-E-A-T and Compliance Vocabulary
+Google explicitly rewards websites demonstrating Experience, Expertise, Authoritativeness, and Trustworthiness (E-E-A-T). This required compliance language naturally populates the footer and "About Us" pages:
+• "Licensed Mortgage Professionals"
+• "NMLS Consumer Access #[Number]"
+• "Equal Housing Lender"
+• "Privacy Policy and Terms of Use"
+• "Federal Fair Housing Act Compliance"
+Informational & Long-Tail Keywords
+These phrases are targeted through educational blog posts to capture borrowers early in their house-hunting journey: 
+• "How much house can I afford with a [Score] credit score?"
+• "What is the difference between FHA and Conventional loans?"
+• "How to remove private mortgage insurance (PMI)"
+• "Documents needed for a home loan application
+
+
+23. Words to avoid
+Regulatory and Compliance Red Flags
+• "Guaranteed"
+• Underwriting rules change constantly. Never promise an approval before a underwriter signs off.
+• "Rates are going up tomorrow"
+• Creating fake urgency violates the Truth in Lending Act (TILA) advertising rules.
+• "You should move to this neighborhood"
+• Steering buyers toward specific areas triggers federal Fair Housing Act violations.
+• "Don't worry about that fee"
+• Downplaying costs violates RESPA rules regarding accurate Loan Estimates.
+Deceptive or Aggressive Sales Language
+• "No-money-down loan"
+• Almost all zero-down loans (like VA or USDA) still require closing costs. [1, 2]
+• "This is a free refinance"
+• Refinances are never free. The closing costs are simply rolled into the loan balance. [1]
+• "Trust me, you can afford this"
+• Let the debt-to-income (DTI) math speak for itself instead of pushing your opinion. [1]
+• "Just sign here, we will fix the paperwork later"
+• This sounds predatory and destroys consumer trust immediately.
+Confusing Industry Jargon
+• "Your DTI is too high"
+• Say "debt-to-income ratio" and explain how monthly bills compare to gross income. [1]
+• "We need to check the AUS"
+• Say "automated underwriting system" so the borrower knows a computer is processing their data.
+• "The P&I is set, but the TI might change"
+• Say "Principal and Interest" and "Taxes and Insurance" separately to avoid confusing them.
+
+
+
+
+
+24. Mention speed / fast turnaround time?
+ Yes 
+
+25. Mission statement
+Helping families achieve their homeownership dreams with personalized service and competitive rates.
+
+
+26. Owner message?
+Yes  
+
+Section 5: Visitor Outcome
+27. Primary next step (Call to Action)
+What is the main action you want visitors to take immediately after visiting your site?
+Apply, Prequalify 
+
+28. Secondary next step (Call to Action)
+If visitors are not ready for the main action, what should they do next?
+☐ Call   ☐ Message   ☐ Learn   ☐ Read reviews   
+
+29. Lead destination
+☐ Email   ☐ CRM   ☐ Loan system   ☐ Text notification   
+
+30. Response time expectations
+ 30 minutes
+
+31. Form fields
+☐ Name   ☐ Email   ☐ Phone   ☐ Loan type   ☐ Location   ☐ Price
+☐ Timeline   ☐ Credit range   ☐ Message
+
+32. Form length
+Moderate
+
+33. Online application?
+Yes   
+
+34. Apply vs. talk first
+Offer both
+
+35. Online scheduling?
+Later
+
+36. Text messaging?
+Yes 
+
+Section 6: Brand Direction
+37. Brand feel (pick up to 5)
+☐ Professional   ☐ Trustworthy   ☐ Modern   ☐ Premium
+
+38. Visual style
+☐ National lender  
+39. Logo
+Minor updates  
+
+40. Brand colors
+Yes  
+
+41. Preferred colors
+See brand-color-pallet.png and brand-gradients.png
+
+42. Photography style 
+Homes  and Families   
+
+43. Existing photos?
+No  
+
+44. New photography?
+☐ Maybe
+
+45. Include photos?
+ Some
+
+46. Motion level
+☐ Minimal   ☐ Subtle  
+
+47. Websites you like
+List up to three sites and what you like about each.
+Better Mortgage Official Site - a sleek fintech site
+CrossCountry Mortgage - Best for Media Integration
+Tomo Mortgage - Best for Modern Fintech Interface
+
+
+
+Section 7: Trust
+48. Trust signals
+☐ Experience   ☐ Reviews   ☐ Google presence   ☐ Affiliations   ☐ Team   ☐ Licensing  
+
+49. Testimonials?
+Yes
+
+50. Review sources
+Google, Facebook, Instagram
+
+
+51. Awards / certifications
+
+
+52. Show leadership?
+☐ Yes
+
+53. Leadership qualities to communicate
+• Technical Competence: Deep, current knowledge of complex guidelines (Fannie Mae, Freddie Mac, FHA, VA).
+• High Responsiveness: Answering agent and borrower questions immediately during high-stakes weekend negotiations.
+• Proactive Problem-Solving: Identifying potential underwriting red flags early and restructuring loans before they fail.
+• Empathy: Calming stressed, first-time homebuyers through a naturally emotional milestone.
+• Radical Transparency: Setting honest expectations about rates, fees, and closing timelines from day one.
+• Educational Approach: Acting as a trusted financial advisor rather than a transactional salesperson.
+
+
+
+54. Community involvement?
+Yes
+
+
+ 
+PHASE 2: CONTENT
+
+55. Education importance
+Some
+
+56. Priority topics
+First-time buyers, credit, down payment, FHA, VA, conventional, refinance, investment, rates, PMI, preapproval, market, documents, or other.
+
+
+
+
+57. Content approval
+☐ Owner   ☐ Loan officer 
+
+PHASE 3: LOCAL GROWTH
+
+58. Google importance
+Highest priority
+
+59. Search terms
+What words or phrases should people use to find Right Away Lending?
+Mortgage lender near me 
+Home loan lender
+Mortgage broker
+FHA lender
+VA loan lender 
+USDA home loan lender 
+Conventional mortgage lender
+Best mortgage lenders phoenix AZ 
+Mortgage underwriter
+Loan underwriter
+FHA underwriter
+VA underwriter
+USDA underwriter
+Automated underwriting system (AUS)
+Mortgage underwriting services
+Loan officer
+NMLS‑licensed lender
+Mortgage loan originator
+Home loan pre‑approval
+Mortgage application help
+
+
+
+
+60. Google Business Profile?
+Yes
+
+61. Access
+Who manages the Google Business Profile?
+
+
+62. Business information consistency
+No
+
+63. Review requests
+A process is needed
+
+64. Review priority
+Not sure
+
+
+PHASE 4: FUTURE GROWTH
+
+66. Platforms
+Facebook, Instagram, LinkedIn, YouTube, TikTok, X, and pipedrive
+
+67. Best platform today
+Facebook
+
+68. Social media goals
+☐ Awareness   ☐ Leads  ☐ Trust   ☐ Website traffic 
+
+	69. Who will create, approve, and publish social media content?
+Owner and team
+
+70. Posting frequency
+☐ 3–5 times per week  
+
+71. Social campaign landing pages?
+Yes 
+
