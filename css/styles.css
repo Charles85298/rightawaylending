@@ -1148,3 +1148,259 @@ button,a,input,select{max-width:100%}
   .mobilebar .btn{font-size:.8rem}
   .payment-donut{width:200px!important;height:200px!important}
 }
+
+
+/* ---------- Dedicated tablet optimization v15 ---------- */
+@media(min-width:701px) and (max-width:1100px){
+  body{padding-bottom:0}
+  .wrap{width:min(100% - 36px,1240px)}
+
+  .topbar .wrap{
+    min-height:34px;
+    font-size:.75rem;
+  }
+
+  .nav{
+    height:82px;
+    gap:16px;
+  }
+  .brand img{
+    width:245px;
+    max-height:64px;
+  }
+  .links,
+  .actions .phone{
+    display:none;
+  }
+  .actions{
+    margin-left:auto;
+    gap:9px;
+  }
+  .actions>.btn-primary{
+    display:inline-flex;
+    min-height:46px;
+    padding:0 18px;
+    font-size:.84rem;
+  }
+  .theme,
+  .menu{
+    display:grid;
+    place-items:center;
+    width:44px;
+    height:44px;
+  }
+
+  .mobilemenu{
+    position:fixed;
+    inset:116px 0 0;
+    z-index:190;
+    padding:18px 28px 40px;
+    overflow-y:auto;
+    background:var(--surface);
+    box-shadow:0 24px 60px rgba(0,34,68,.18);
+  }
+  .mobilemenu.open{display:block}
+  .mobilemenu a{
+    display:block;
+    padding:17px 4px;
+    border-bottom:1px solid var(--line);
+    font-size:1rem;
+    font-weight:800;
+  }
+
+  .hero{
+    min-height:610px;
+    background-position:62% center;
+  }
+  .hero-copy{
+    max-width:610px;
+    padding:74px 0 132px;
+  }
+  h1{
+    font-size:clamp(3.2rem,7vw,4.6rem);
+  }
+  h2{
+    font-size:clamp(2.2rem,5vw,3.25rem);
+  }
+  .hero .lead{
+    font-size:1.08rem;
+    max-width:560px;
+  }
+  .hero-actions{
+    display:flex;
+    flex-wrap:wrap;
+  }
+  .hero-actions .btn{
+    width:auto;
+  }
+
+  .trust-panel{
+    grid-template-columns:repeat(2,1fr);
+    width:min(100% - 36px,1040px);
+    margin-top:-46px;
+  }
+  .trust-panel article{
+    min-height:96px;
+  }
+  .trust-panel article:nth-child(even){
+    border-right:0;
+  }
+  .trust-panel article:last-child{
+    grid-column:1/-1;
+    border-bottom:0;
+  }
+
+  .section,
+  .section.soft{
+    padding:82px 0;
+  }
+  .head{
+    max-width:700px;
+    margin-bottom:34px;
+  }
+
+  .grid-4,
+  .programs,
+  .journey,
+  .loan-card-grid{
+    grid-template-columns:repeat(2,1fr)!important;
+  }
+  .grid-3,
+  .resource-grid{
+    grid-template-columns:repeat(2,1fr)!important;
+  }
+  .grid-3>article:last-child,
+  .resource-grid>article:last-child{
+    grid-column:1/-1;
+  }
+
+  .split,
+  .qualify,
+  .content-grid,
+  .loan-page-layout{
+    grid-template-columns:1fr;
+    gap:38px;
+  }
+  .compare{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .calc{
+    grid-template-columns:.95fr 1.05fr;
+    gap:34px;
+    align-items:start;
+  }
+  .advanced-calculator{
+    grid-template-columns:minmax(0,1.15fr) minmax(300px,.85fr)!important;
+    gap:22px;
+  }
+  .calculator-results{
+    position:sticky!important;
+    top:106px!important;
+    padding:24px!important;
+  }
+  .calculator-tabs{
+    width:auto;
+    display:inline-flex;
+  }
+  .slider-field{
+    padding:16px;
+  }
+  .slider-heading{
+    gap:12px;
+  }
+  .payment-donut{
+    width:235px!important;
+    height:235px!important;
+  }
+  .payment-donut::after{
+    inset:38px!important;
+  }
+  .payment-donut strong{
+    font-size:1.7rem!important;
+  }
+
+  .fact-grid{
+    grid-template-columns:repeat(3,1fr)!important;
+  }
+  .procon-grid{
+    grid-template-columns:1fr 1fr!important;
+  }
+
+  .comparison-table-wrap{
+    -webkit-overflow-scrolling:touch;
+  }
+  .comparison-table{
+    min-width:900px;
+  }
+  .comparison-table th,
+  .comparison-table td{
+    padding:13px 14px;
+    font-size:.82rem;
+  }
+
+  .wizard-shell{
+    max-width:820px;
+  }
+  .wizard-options{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .final .wrap{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:28px;
+  }
+  .final-actions{
+    display:flex;
+    flex-wrap:wrap;
+    margin-top:0;
+  }
+
+  .foot{
+    grid-template-columns:1fr 1fr;
+    gap:30px 42px;
+  }
+  .legal{
+    display:flex;
+    justify-content:space-between;
+    text-align:left;
+  }
+
+  .mobilebar{
+    display:none;
+  }
+}
+
+/* Landscape tablets and small laptops */
+@media(min-width:900px) and (max-width:1100px) and (orientation:landscape){
+  .hero{
+    min-height:560px;
+  }
+  .hero-copy{
+    padding:64px 0 112px;
+  }
+  .trust-panel{
+    grid-template-columns:repeat(5,1fr);
+  }
+  .trust-panel article{
+    min-height:110px;
+  }
+  .trust-panel article:last-child{
+    grid-column:auto;
+  }
+  .programs{
+    grid-template-columns:repeat(4,1fr)!important;
+  }
+  .grid-4{
+    grid-template-columns:repeat(4,1fr)!important;
+  }
+}
+
+/* iPad Pro portrait refinement */
+@media(min-width:1000px) and (max-width:1100px) and (orientation:portrait){
+  .brand img{width:270px}
+  .hero-copy{max-width:660px}
+  .loan-card-grid{grid-template-columns:repeat(3,1fr)!important}
+}

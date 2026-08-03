@@ -132,3 +132,12 @@ These pages are educational and contain compliance-aware language. Final content
   - Proper mobile spacing and no horizontal overflow
   - Touch-friendly comparison tables, calculators, tooltips, and sticky actions
   - Extra optimization for screens below 390px
+
+- Version 15 adds a dedicated tablet responsive pass for 701px–1100px:
+  - Tablet navigation with logo, CTA, theme toggle, and hamburger
+  - Two-column trust bar and card layouts
+  - Tablet-specific hero sizing and image focal point
+  - 60/40 calculator layout with sticky results panel
+  - Two-column footer
+  - Improved comparison tables and wizard controls
+  - Landscape tablet and iPad Pro portrait refinements
