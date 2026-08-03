@@ -141,3 +141,15 @@ These pages are educational and contain compliance-aware language. Final content
   - Two-column footer
   - Improved comparison tables and wizard controls
   - Landscape tablet and iPad Pro portrait refinements
+
+- Version 16 introduces the flagship homepage:
+  - Premium hero and live mortgage snapshot
+  - Animated metrics
+  - Interactive loan finder
+  - Seven-step homebuying timeline
+  - Embedded calculator preview
+  - Premium feature cards
+  - Testimonial carousel
+  - Floating quick-action menu
+  - Scroll-reveal animation with reduced-motion support
+  - Responsive desktop, tablet, and mobile layouts

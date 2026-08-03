@@ -112,3 +112,88 @@ document.addEventListener('DOMContentLoaded',()=>{
  back.addEventListener('click',()=>{if(result.classList.contains('active')){result.classList.remove('active');next.hidden=false;current=5;draw()}else if(current>1){current--;draw()}});
  draw();
 });
+
+
+document.addEventListener('DOMContentLoaded',()=>{
+  const snapshotButtons=[...document.querySelectorAll('.snapshot-program')];
+  const snapshotPayment=document.getElementById('snapshotPayment');
+  const snapshotRing=document.querySelector('.snapshot-ring strong');
+  snapshotButtons.forEach(btn=>btn.addEventListener('click',()=>{
+    snapshotButtons.forEach(x=>x.classList.remove('active'));
+    btn.classList.add('active');
+    if(snapshotPayment) snapshotPayment.textContent='$'+Number(btn.dataset.payment).toLocaleString('en-US');
+    if(snapshotRing) snapshotRing.textContent=Number(btn.dataset.rate).toFixed(3).replace(/0+$/,'').replace(/\.$/,'')+'%';
+  }));
+
+  const metrics=[...document.querySelectorAll('.metric-value')];
+  const revealElements=[...document.querySelectorAll('.reveal')];
+  const observer=new IntersectionObserver(entries=>{
+    entries.forEach(entry=>{
+      if(!entry.isIntersecting) return;
+      entry.target.classList.add('visible');
+      if(entry.target.classList.contains('metric-card')){
+        const el=entry.target.querySelector('.metric-value');
+        if(el && !el.dataset.done){
+          el.dataset.done='true';
+          const target=Number(el.dataset.count)||0;
+          let value=0;
+          const step=Math.max(1,Math.ceil(target/35));
+          const timer=setInterval(()=>{value=Math.min(target,value+step);el.textContent=value+(target===100?'%':target===24?' hrs':'');if(value>=target)clearInterval(timer)},32);
+        }
+      }
+      observer.unobserve(entry.target);
+    });
+  },{threshold:.16});
+  revealElements.forEach(el=>observer.observe(el));
+  document.querySelectorAll('.metric-card').forEach(el=>observer.observe(el));
+
+  const finderSteps=[...document.querySelectorAll('.loan-finder-step')];
+  const finderResult=document.getElementById('loanFinderResult');
+  const finderTitle=document.getElementById('loanFinderTitle');
+  const finderCopy=document.getElementById('loanFinderCopy');
+  const answers={}; let step=1;
+  document.querySelectorAll('.finder-options button').forEach(btn=>btn.addEventListener('click',()=>{
+    btn.closest('.finder-options').querySelectorAll('button').forEach(x=>x.classList.remove('selected'));
+    btn.classList.add('selected');answers[btn.dataset.key]=btn.dataset.value;
+    setTimeout(()=>{
+      if(step<3){step++;finderSteps.forEach(s=>s.classList.toggle('active',Number(s.dataset.step)===step))}
+      else{
+        finderSteps.forEach(s=>s.classList.remove('active'));finderResult.classList.add('active');
+        let programs=['Conventional'],reasons=[];
+        if(answers.military==='yes'){programs.unshift('VA');reasons.push('Possible military eligibility makes VA worth reviewing.')}
+        if(answers.down==='zero' && answers.military!=='yes'){programs.unshift('USDA');reasons.push('Zero-down possibilities may be worth discussing, subject to area and income eligibility.')}
+        if((answers.down==='low'||answers.goal==='first') && answers.military!=='yes'){programs.unshift('FHA');reasons.push('A lower down payment and FHA qualification features may be worth comparing.')}
+        if(answers.goal==='refi'){programs=['Conventional','FHA','VA'];reasons=['Refinance options depend on the current loan, equity, eligibility, and financial goals.']}
+        finderTitle.textContent=[...new Set(programs)].slice(0,3).join(', ');
+        finderCopy.textContent=reasons.join(' ') || 'Conventional financing provides a useful comparison point for many borrowers.';
+      }
+    },180);
+  }));
+
+  const journeyDetail=document.getElementById('journeyDetail');
+  document.querySelectorAll('.journey-node').forEach(btn=>btn.addEventListener('click',()=>{
+    document.querySelectorAll('.journey-node').forEach(x=>x.classList.remove('active'));
+    btn.classList.add('active');if(journeyDetail)journeyDetail.textContent=btn.dataset.copy;
+  }));
+
+  const miniIds=['miniPrice','miniDown','miniRate'];
+  const payment=(p,r,n=360)=>{const m=(r/100)/12;return m?p*(m*Math.pow(1+m,n))/(Math.pow(1+m,n)-1):p/n};
+  function updateMini(){
+    const price=Number(document.getElementById('miniPrice')?.value)||0;
+    const down=Math.min(Number(document.getElementById('miniDown')?.value)||0,price);
+    const rate=Number(document.getElementById('miniRate')?.value)||0;
+    document.getElementById('miniPriceValue').textContent='$'+price.toLocaleString('en-US');
+    document.getElementById('miniDownValue').textContent='$'+down.toLocaleString('en-US');
+    document.getElementById('miniRateValue').textContent=rate.toFixed(3).replace(/0+$/,'').replace(/\.$/,'')+'%';
+    document.getElementById('miniPayment').textContent='$'+Math.round(payment(price-down,rate)).toLocaleString('en-US')+'/mo';
+  }
+  miniIds.forEach(id=>document.getElementById(id)?.addEventListener('input',updateMini));updateMini();
+
+  const slides=[...document.querySelectorAll('.testimonial-slide')];let slide=0;
+  function showSlide(i){slides.forEach((s,n)=>s.classList.toggle('active',n===i))}
+  document.getElementById('testimonialNext')?.addEventListener('click',()=>{slide=(slide+1)%slides.length;showSlide(slide)});
+  document.getElementById('testimonialPrev')?.addEventListener('click',()=>{slide=(slide-1+slides.length)%slides.length;showSlide(slide)});
+
+  const floatingToggle=document.getElementById('floatingToggle'),floatingMenu=document.getElementById('floatingMenu');
+  floatingToggle?.addEventListener('click',()=>{const open=floatingMenu.classList.toggle('open');floatingToggle.setAttribute('aria-expanded',String(open));floatingToggle.textContent=open?'×':'+'});
+});

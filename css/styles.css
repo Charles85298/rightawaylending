@@ -1404,3 +1404,49 @@ button,a,input,select{max-width:100%}
   .hero-copy{max-width:660px}
   .loan-card-grid{grid-template-columns:repeat(3,1fr)!important}
 }
+
+
+/* ---------- Flagship homepage v16 ---------- */
+.flagship-hero{position:relative;min-height:720px;background:url("../images/hero-home.jpg") center/cover no-repeat;color:#fff;overflow:hidden}
+.flagship-hero-overlay{position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,20,42,.96),rgba(0,34,68,.78) 43%,rgba(0,34,68,.22) 72%,rgba(0,34,68,.04))}
+.flagship-hero-grid{position:relative;z-index:2;display:grid;grid-template-columns:1.05fr .75fr;gap:58px;align-items:center;min-height:720px}
+.flagship-hero-copy{max-width:720px}
+.flagship-hero-copy h1{margin:18px 0 22px}
+.flagship-hero-copy h1 span{color:var(--green)}
+.flagship-lead{font-size:1.14rem;color:#dfeaf4;max-width:620px}
+.flagship-hero-actions{display:flex;gap:13px;flex-wrap:wrap;margin:30px 0 22px}
+.flagship-trust-row{display:flex;gap:16px;flex-wrap:wrap;color:#d7e4ef;font-size:.8rem;font-weight:750}
+.mortgage-snapshot{background:rgba(255,255,255,.11);border:1px solid rgba(255,255,255,.22);backdrop-filter:blur(18px);border-radius:28px;padding:28px;box-shadow:0 28px 70px rgba(0,0,0,.26)}
+.snapshot-top{display:flex;justify-content:space-between;gap:18px;align-items:flex-start}
+.snapshot-top span{display:block;color:#d7e5ef;font-size:.76rem;text-transform:uppercase;letter-spacing:.08em;font-weight:800}
+.snapshot-top strong{display:block;font-size:2.3rem;line-height:1.1;margin-top:5px}
+.snapshot-pill{padding:7px 10px;border-radius:999px;background:rgba(105,190,40,.18);color:#a8e27d!important;font-size:.68rem!important}
+.snapshot-chart{display:grid;place-items:center;padding:24px 0}
+.snapshot-ring{width:190px;height:190px;border-radius:50%;display:grid;place-items:center;background:conic-gradient(var(--green) 0 66%,rgba(255,255,255,.12) 66% 100%);position:relative}
+.snapshot-ring::after{content:"";position:absolute;inset:25px;border-radius:50%;background:#0a3155}
+.snapshot-ring>div{position:relative;z-index:1;text-align:center}.snapshot-ring strong{display:block;font-size:1.75rem}.snapshot-ring span{display:block;color:#d2e2ed;font-size:.75rem}
+.snapshot-programs{display:grid;grid-template-columns:1fr 1fr;gap:9px}.snapshot-program{min-height:44px;border:1px solid rgba(255,255,255,.15);border-radius:11px;background:rgba(255,255,255,.06);color:#fff;font-weight:800;cursor:pointer}.snapshot-program.active{border-color:var(--green);background:rgba(105,190,40,.14)}
+.mortgage-snapshot>p{margin-top:16px;color:#c9d9e6;font-size:.72rem}
+.premium-metrics{background:var(--surface);padding:0 0 20px}
+.premium-metrics-grid{position:relative;z-index:4;display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:-56px}
+.metric-card{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:22px;box-shadow:var(--shadow)}
+.metric-value{display:block;font-size:2rem;font-weight:950;color:var(--green-2);line-height:1}.metric-card strong{display:block;margin-top:8px}.metric-card p{color:var(--muted);font-size:.8rem;margin-top:5px}
+.loan-finder-shell{display:grid;grid-template-columns:1.1fr .9fr;gap:36px;background:var(--surface);border:1px solid var(--line);border-radius:28px;padding:32px;box-shadow:var(--shadow)}
+.loan-finder-step{display:none}.loan-finder-step.active{display:block}.finder-step-label{display:block;color:var(--green-2);font-size:.74rem;font-weight:900;text-transform:uppercase;letter-spacing:.1em}.loan-finder-step h3{font-size:1.6rem;margin:9px 0 18px}
+.finder-options{display:grid;grid-template-columns:repeat(2,1fr);gap:11px}.finder-options button{min-height:54px;border:1px solid var(--line);background:var(--soft);color:var(--ink);border-radius:13px;font-weight:850;cursor:pointer}.finder-options button:hover,.finder-options button.selected{border-color:var(--green);box-shadow:0 0 0 3px rgba(105,190,40,.14)}
+.loan-finder-result{display:none}.loan-finder-result.active{display:block}.loan-finder-result h3{font-size:2rem;color:var(--navy);margin:10px 0}.loan-finder-result p{color:var(--muted)}
+html[data-theme="dark"] .loan-finder-result h3{color:#fff}
+.loan-finder-visual{display:grid;place-items:center;text-align:center;background:linear-gradient(145deg,var(--navy),var(--navy-2));border-radius:22px;padding:28px;color:#fff}
+.finder-orbit{position:relative;width:250px;height:250px;border:1px dashed rgba(255,255,255,.35);border-radius:50%;display:grid;place-items:center}.finder-center{width:88px;height:88px;border-radius:50%;display:grid;place-items:center;background:var(--green);font-weight:950;font-size:1.25rem}.finder-orbit span{position:absolute;font-size:.72rem;font-weight:900;padding:7px 9px;border-radius:999px;background:rgba(255,255,255,.11)}.finder-orbit span:nth-of-type(1){top:8px}.finder-orbit span:nth-of-type(2){right:0;top:102px}.finder-orbit span:nth-of-type(3){bottom:9px}.finder-orbit span:nth-of-type(4){left:0;top:102px}
+.loan-finder-visual p{margin-top:18px;color:#d7e5ef;font-size:.84rem}
+.journey-timeline{display:grid;grid-template-columns:repeat(7,1fr);gap:10px}.journey-node{min-height:110px;border:1px solid var(--line);border-radius:17px;background:var(--surface);color:var(--ink);padding:14px 10px;cursor:pointer}.journey-node span{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:var(--soft);margin:0 auto 10px;font-weight:900}.journey-node strong{display:block;font-size:.78rem}.journey-node.active{border-color:var(--green);box-shadow:0 0 0 3px rgba(105,190,40,.13)}.journey-node.active span{background:var(--green);color:#fff}
+.journey-detail{margin-top:18px;padding:22px;border-radius:16px;background:var(--soft);border-left:5px solid var(--green);color:var(--muted);font-weight:700}
+.premium-calculator-section{background:linear-gradient(135deg,var(--surface),var(--soft))}
+.premium-calculator-grid{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center}.mini-calculator{background:var(--surface);border:1px solid var(--line);border-radius:24px;padding:28px;box-shadow:var(--shadow)}.mini-result{display:flex;justify-content:space-between;align-items:center;padding-bottom:18px;border-bottom:1px solid var(--line);margin-bottom:18px}.mini-result span{color:var(--muted);font-size:.82rem}.mini-result strong{font-size:1.55rem;color:var(--green-2)}.mini-calculator label{display:flex;justify-content:space-between;font-size:.82rem;font-weight:850;margin:16px 0 8px}.mini-calculator output{color:var(--green-2)}.mini-calculator input[type="range"]{width:100%;accent-color:var(--green)}.mini-calculator>p{margin-top:16px;color:var(--muted);font-size:.72rem}
+.premium-feature-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.premium-feature{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:25px;transition:.22s}.premium-feature:hover{transform:translateY(-4px);box-shadow:var(--shadow)}.premium-feature p{color:var(--muted);font-size:.9rem;margin-top:9px}
+.testimonial-carousel{position:relative;max-width:850px;margin:auto;background:linear-gradient(145deg,var(--navy),var(--navy-2));border-radius:28px;padding:42px;color:#fff;box-shadow:var(--shadow)}.testimonial-slide{display:none;text-align:center}.testimonial-slide.active{display:block}.testimonial-slide blockquote{font-size:1.55rem;line-height:1.45;margin:18px auto;max-width:650px}.testimonial-slide span{display:block;color:#cbdce8;font-size:.8rem}.testimonial-controls{display:flex;justify-content:center;gap:10px;margin-top:24px}.testimonial-controls button{width:44px;height:44px;border-radius:50%;border:1px solid rgba(255,255,255,.25);background:rgba(255,255,255,.08);color:#fff;cursor:pointer}
+.floating-actions{position:fixed;right:22px;bottom:22px;z-index:180}.floating-actions>button{width:58px;height:58px;border-radius:50%;border:0;background:var(--green);color:#fff;font-size:1.7rem;box-shadow:0 14px 30px rgba(105,190,40,.3);cursor:pointer}.floating-menu{position:absolute;right:0;bottom:70px;display:none;min-width:150px;background:var(--surface);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);overflow:hidden}.floating-menu.open{display:grid}.floating-menu a{padding:12px 15px;border-bottom:1px solid var(--line);font-weight:800}.floating-menu a:last-child{border-bottom:0}
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .65s ease,transform .65s ease}.reveal.visible{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}.premium-feature:hover{transform:none}}
+@media(max-width:1100px){.flagship-hero-grid{grid-template-columns:1fr;gap:28px;padding:70px 0}.mortgage-snapshot{max-width:620px}.premium-metrics-grid{grid-template-columns:repeat(2,1fr)}.loan-finder-shell,.premium-calculator-grid{grid-template-columns:1fr}.premium-feature-grid{grid-template-columns:repeat(2,1fr)}.journey-timeline{grid-template-columns:repeat(4,1fr)}}
+@media(max-width:700px){.flagship-hero{min-height:auto}.flagship-hero-grid{min-height:auto;padding:52px 0}.flagship-hero-actions{display:grid}.flagship-hero-actions .btn{width:100%}.mortgage-snapshot{padding:22px}.premium-metrics-grid{grid-template-columns:1fr;margin-top:14px}.loan-finder-shell{padding:22px}.finder-options{grid-template-columns:1fr}.loan-finder-visual{display:none}.journey-timeline{grid-template-columns:repeat(2,1fr)}.premium-feature-grid{grid-template-columns:1fr}.testimonial-carousel{padding:28px 20px}.testimonial-slide blockquote{font-size:1.18rem}.floating-actions{display:none}}
