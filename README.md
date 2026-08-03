@@ -124,3 +124,11 @@ These pages are educational and contain compliance-aware language. Final content
   - loan-qualification-wizard.html
   - responsive comparison table
   - interactive educational recommendation wizard
+
+- Version 14 repairs mobile responsiveness across the homepage and shared page system:
+  - Compact mobile header and full-screen navigation drawer
+  - Smaller responsive logo and typography
+  - Single-column hero actions, trust signals, cards, footer, and CTA sections
+  - Proper mobile spacing and no horizontal overflow
+  - Touch-friendly comparison tables, calculators, tooltips, and sticky actions
+  - Extra optimization for screens below 390px
