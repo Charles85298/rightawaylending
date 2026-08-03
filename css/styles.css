@@ -1450,3 +1450,117 @@ html[data-theme="dark"] .loan-finder-result h3{color:#fff}
 @media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}.premium-feature:hover{transform:none}}
 @media(max-width:1100px){.flagship-hero-grid{grid-template-columns:1fr;gap:28px;padding:70px 0}.mortgage-snapshot{max-width:620px}.premium-metrics-grid{grid-template-columns:repeat(2,1fr)}.loan-finder-shell,.premium-calculator-grid{grid-template-columns:1fr}.premium-feature-grid{grid-template-columns:repeat(2,1fr)}.journey-timeline{grid-template-columns:repeat(4,1fr)}}
 @media(max-width:700px){.flagship-hero{min-height:auto}.flagship-hero-grid{min-height:auto;padding:52px 0}.flagship-hero-actions{display:grid}.flagship-hero-actions .btn{width:100%}.mortgage-snapshot{padding:22px}.premium-metrics-grid{grid-template-columns:1fr;margin-top:14px}.loan-finder-shell{padding:22px}.finder-options{grid-template-columns:1fr}.loan-finder-visual{display:none}.journey-timeline{grid-template-columns:repeat(2,1fr)}.premium-feature-grid{grid-template-columns:1fr}.testimonial-carousel{padding:28px 20px}.testimonial-slide blockquote{font-size:1.18rem}.floating-actions{display:none}}
+
+
+/* ---------- Design system polish v17 ---------- */
+.btn{
+  position:relative;
+  overflow:hidden;
+  isolation:isolate;
+}
+.btn::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(120deg,transparent 20%,rgba(255,255,255,.22),transparent 80%);
+  transform:translateX(-120%);
+  transition:transform .55s ease;
+  z-index:-1;
+}
+.btn:hover::after{transform:translateX(120%)}
+.btn:focus-visible,
+.menu:focus-visible,
+.theme:focus-visible,
+.faq-item button:focus-visible,
+.wizard-option:focus-visible,
+.finder-options button:focus-visible{
+  outline:3px solid color-mix(in srgb,var(--green) 45%,transparent);
+  outline-offset:3px;
+}
+.card,
+.loan-type-card,
+.premium-feature,
+.metric-card,
+.testimonial-carousel,
+.mortgage-snapshot,
+.mini-calculator,
+.loan-finder-shell{
+  transition:transform var(--ral-transition-base),box-shadow var(--ral-transition-base),border-color var(--ral-transition-base);
+}
+.card:hover,
+.loan-type-card:hover,
+.premium-feature:hover,
+.metric-card:hover{
+  box-shadow:var(--ral-shadow-md);
+}
+.section-divider{
+  width:min(1240px,calc(100% - 40px));
+  height:1px;
+  margin:auto;
+  background:linear-gradient(90deg,transparent,var(--line),transparent);
+}
+.icon{
+  transition:transform var(--ral-transition-base),background var(--ral-transition-base),color var(--ral-transition-base);
+}
+.card:hover .icon,
+.loan-type-card:hover .icon,
+.premium-feature:hover .icon{
+  transform:translateY(-2px) scale(1.04);
+}
+a{text-underline-offset:3px}
+.textlink:hover{text-decoration:underline}
+::selection{background:color-mix(in srgb,var(--green) 28%,transparent)}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{
+    scroll-behavior:auto!important;
+    animation-duration:.01ms!important;
+    animation-iteration-count:1!important;
+    transition-duration:.01ms!important;
+  }
+}
+
+/* ---------- UI component library ---------- */
+.component-hero{
+  padding:72px 0 54px;
+  background:linear-gradient(120deg,var(--navy),var(--navy-2));
+  color:#fff;
+}
+.component-hero p{max-width:720px;color:#dbe7f0}
+.component-nav{
+  position:sticky;
+  top:78px;
+  z-index:20;
+  background:var(--surface);
+  border-bottom:1px solid var(--line);
+}
+.component-nav .wrap{
+  display:flex;
+  gap:18px;
+  overflow-x:auto;
+  padding:12px 0;
+}
+.component-nav a{
+  white-space:nowrap;
+  font-weight:800;
+  color:var(--blue);
+}
+.component-section{padding:64px 0;border-bottom:1px solid var(--line)}
+.component-section h2{margin-bottom:24px}
+.swatch-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.swatch{border:1px solid var(--line);border-radius:16px;overflow:hidden;background:var(--surface)}
+.swatch-color{height:100px}
+.swatch-meta{padding:14px}
+.swatch-meta strong,.swatch-meta span{display:block}
+.swatch-meta span{color:var(--muted);font-size:.82rem}
+.component-preview{display:flex;flex-wrap:wrap;gap:14px;align-items:center}
+.component-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.typography-sample{display:grid;gap:18px}
+.typography-sample div{padding-bottom:18px;border-bottom:1px solid var(--line)}
+.code-note{padding:14px 16px;border-radius:12px;background:var(--soft);color:var(--muted);font-size:.84rem}
+@media(max-width:900px){
+  .swatch-grid,.component-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:700px){
+  .swatch-grid,.component-grid{grid-template-columns:1fr}
+  .component-nav{top:68px}
+}

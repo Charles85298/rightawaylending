@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Right Away Lending website UI component library and design system reference.">
+<title>UI Component Library | Right Away Lending</title>
+<link rel="icon" href="images/logo-transparent.png" type="image/png">
+<link rel="stylesheet" href="css/tokens.css">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<header class="header">
+ <div class="wrap nav">
+  <a class="brand" href="index.html"><img src="images/logo-transparent.png" alt="Right Away Lending"></a>
+  <div class="actions" style="margin-left:auto">
+   <button class="theme" id="theme" aria-label="Toggle light and dark theme">☼</button>
+   <a class="btn btn-primary" href="index.html">View Website</a>
+  </div>
+ </div>
+</header>
+
+<main>
+<section class="component-hero"><div class="wrap">
+ <div class="eyebrow">Version 17 design system</div>
+ <h1>Right Away Lending UI Component Library</h1>
+ <p>A visual reference for colors, typography, buttons, cards, forms, badges, icons, spacing, and interaction patterns used across the website.</p>
+</div></section>
+
+<nav class="component-nav"><div class="wrap">
+ <a href="#colors">Colors</a><a href="#type">Typography</a><a href="#buttons">Buttons</a>
+ <a href="#cards">Cards</a><a href="#forms">Forms</a><a href="#badges">Badges</a><a href="#spacing">Spacing</a>
+</div></nav>
+
+<section class="component-section" id="colors"><div class="wrap">
+ <h2>Brand colors</h2>
+ <div class="swatch-grid">
+  <article class="swatch"><div class="swatch-color" style="background:#002244"></div><div class="swatch-meta"><strong>Navy</strong><span>#002244</span></div></article>
+  <article class="swatch"><div class="swatch-color" style="background:#245998"></div><div class="swatch-meta"><strong>Support Blue</strong><span>#245998</span></div></article>
+  <article class="swatch"><div class="swatch-color" style="background:#69BE28"></div><div class="swatch-meta"><strong>Action Green</strong><span>#69BE28</span></div></article>
+  <article class="swatch"><div class="swatch-color" style="background:#A5ACAF"></div><div class="swatch-meta"><strong>Wolf Gray</strong><span>#A5ACAF</span></div></article>
+  <article class="swatch"><div class="swatch-color" style="background:#F8FAFC"></div><div class="swatch-meta"><strong>Ice White</strong><span>#F8FAFC</span></div></article>
+  <article class="swatch"><div class="swatch-color" style="background:#1E293B"></div><div class="swatch-meta"><strong>Charcoal</strong><span>#1E293B</span></div></article>
+ </div>
+</div></section>
+
+<section class="component-section" id="type"><div class="wrap">
+ <h2>Typography</h2>
+ <div class="typography-sample">
+  <div><span class="eyebrow">Eyebrow label</span><div class="code-note">Uppercase, high letter spacing, green accent.</div></div>
+  <div><h1>Display heading</h1><div class="code-note">Used for major hero statements.</div></div>
+  <div><h2>Section heading</h2><div class="code-note">Used at the start of major sections.</div></div>
+  <div><h3>Card heading</h3><div class="code-note">Used for cards, tools, and feature labels.</div></div>
+  <div><p class="lead">Lead text introduces a page or section with a slightly larger, more relaxed reading size.</p></div>
+  <div><p>Body text uses accessible sizing and comfortable line spacing for educational mortgage content.</p></div>
+ </div>
+</div></section>
+
+<section class="component-section" id="buttons"><div class="wrap">
+ <h2>Buttons</h2>
+ <div class="component-preview">
+  <a class="btn btn-primary" href="#">Primary action</a>
+  <a class="btn btn-secondary" href="#">Secondary action</a>
+  <a class="btn btn-light" style="background:#002244" href="#">Light-on-dark action</a>
+  <a class="textlink" href="#">Text link →</a>
+ </div>
+</div></section>
+
+<section class="component-section" id="cards"><div class="wrap">
+ <h2>Cards</h2>
+ <div class="component-grid">
+  <article class="card"><div class="icon">⌂</div><h3>Standard card</h3><p>Used for programs, resources, and educational topics.</p><a class="textlink" href="#">Learn more →</a></article>
+  <article class="premium-feature"><div class="icon">⚡</div><h3>Premium feature</h3><p>Used for conversion-oriented feature highlights.</p></article>
+  <article class="metric-card"><span class="metric-value">24 hrs</span><strong>Metric card</strong><p>Used for trust and response-time indicators.</p></article>
+ </div>
+</div></section>
+
+<section class="component-section" id="forms"><div class="wrap">
+ <h2>Forms and controls</h2>
+ <div class="component-grid">
+  <div class="field"><label for="sampleName">Text field</label><input id="sampleName" placeholder="Full name"></div>
+  <div class="field"><label for="sampleSelect">Select field</label><select id="sampleSelect"><option>Select an option</option><option>Option one</option></select></div>
+  <div class="slider-field"><div class="slider-heading"><label for="sampleRange">Range slider</label><output>50%</output></div><input id="sampleRange" type="range" min="0" max="100" value="50"><div class="range-scale"><span>0%</span><span>100%</span></div></div>
+ </div>
+</div></section>
+
+<section class="component-section" id="badges"><div class="wrap">
+ <h2>Badges and status indicators</h2>
+ <div class="component-preview">
+  <span class="loan-badge">Primary residence</span>
+  <span class="loan-badge">Low down payment</span>
+  <span class="snapshot-pill">Updated live</span>
+  <span class="tag">Educational</span>
+ </div>
+</div></section>
+
+<section class="component-section" id="spacing"><div class="wrap">
+ <h2>Spacing and layout</h2>
+ <p class="lead">The site uses a consistent spacing scale based on 4px increments, with 16px, 24px, 32px, 48px, and 64px as the most common layout values.</p>
+ <div class="code-note">Page width: max 1240px · Card radius: 20px · Large panel radius: 28px · Minimum touch target: 44px</div>
+</div></section>
+</main>
+
+<footer><div class="wrap legal"><span>Right Away Lending Design System · Version 17</span><span>NMLS #2412327</span></div></footer>
+<script src="js/app.js" defer></script>
+</body>
+</html>

@@ -153,3 +153,9 @@ These pages are educational and contain compliance-aware language. Final content
   - Floating quick-action menu
   - Scroll-reveal animation with reduced-motion support
   - Responsive desktop, tablet, and mobile layouts
+
+- Version 17 adds the formal UI design system:
+  - `css/tokens.css`
+  - `ui-components.html`
+  - `documents/Design-System-v17.md`
+  - Standardized focus states, hover interactions, motion reduction, and shared design tokens
