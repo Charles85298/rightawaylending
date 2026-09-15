@@ -1,4 +1,7 @@
 User-agent: *
 Allow: /
-Disallow: /maintenance.html
-Sitemap: https://www.example.com/sitemap.xml
+Disallow: /maintenance
+Disallow: /500
+Disallow: /launch-status
+Disallow: /ui-components
+Sitemap: https://rightawaylending.com/sitemap.xml
