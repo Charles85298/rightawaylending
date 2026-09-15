@@ -1,0 +1,31 @@
+# Canonical host: www -> apex
+https://www.rightawaylending.com/* https://rightawaylending.com/:splat 301
+
+# Normalize HTML URLs to extensionless canonical URLs
+/index.html / 301
+/accessibility.html /accessibility 301
+/affordability-calculator.html /affordability-calculator 301
+/buyer-guide.html /buyer-guide 301
+/closing-costs-guide.html /closing-costs-guide 301
+/conventional-loans.html /conventional-loans 301
+/credit-readiness.html /credit-readiness 301
+/document-checklist.html /document-checklist 301
+/down-payment-assistance.html /down-payment-assistance 301
+/fha-loans.html /fha-loans 301
+/fha-vs-conventional.html /fha-vs-conventional 301
+/first-time-buyers.html /first-time-buyers 301
+/homebuyer-guide.html /homebuyer-guide 301
+/jumbo-loans.html /jumbo-loans 301
+/licensing.html /licensing 301
+/loan-qualification-wizard.html /loan-qualification-wizard 301
+/mortgage-comparison.html /mortgage-comparison 301
+/mortgage-glossary.html /mortgage-glossary 301
+/offline.html /offline 301
+/prequalify.html /prequalify 301
+/privacy.html /privacy 301
+/refinance-break-even.html /refinance-break-even 301
+/resource-center.html /resource-center 301
+/schedule.html /schedule 301
+/terms.html /terms 301
+/usda-loans.html /usda-loans 301
+/va-loans.html /va-loans 301
