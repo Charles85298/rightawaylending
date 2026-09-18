@@ -1,6 +1,3 @@
-# Canonical host: www -> apex
-https://www.rightawaylending.com/* https://rightawaylending.com/:splat 301
-
 # Normalize HTML URLs to extensionless canonical URLs
 /index.html / 301
 /accessibility.html /accessibility 301
@@ -29,3 +26,4 @@ https://www.rightawaylending.com/* https://rightawaylending.com/:splat 301
 /terms.html /terms 301
 /usda-loans.html /usda-loans 301
 /va-loans.html /va-loans 301
+
