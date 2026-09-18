@@ -1,8 +1,6 @@
 # Public asset allowlist. Everything is excluded unless explicitly admitted below.
 # Keep parent directories admitted, but never use wildcard file exceptions.
 *
-!/_headers
-!/_redirects
 !/404.html
 !/500.html
 !/accessibility.html

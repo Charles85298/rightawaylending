@@ -12,8 +12,9 @@ const rules = readFileSync(resolve(root, '.assetsignore'), 'utf8')
   .split(/\r?\n/).filter(line => line && !line.startsWith('#'));
 const admitted = rules.slice(1).filter(line => !line.endsWith('/')).map(line => line.slice(2));
 const controls = new Set(['_headers', '_redirects']);
-const publicFiles = admitted.filter(file => !controls.has(file));
+const publicFiles = admitted;
 const excluded = [
+  '_headers', '_redirects',
   '.git/HEAD', '.git/config', '.git/index', '.git/FETCH_HEAD', '.git/logs/HEAD',
   '.git/objects/dd/65de03fb5164d53989a100393219d4420f93a7',
   '.wrangler/tmp/deploy/no-op-worker.js.map', '.github/workflows/static.yml',
@@ -36,7 +37,7 @@ test('allowlist is deny-by-default with only exact, safe file exceptions', () =>
     assert.match(rule, /^!\/[A-Za-z0-9_/-]+(?:\.[A-Za-z0-9]+)?\/?$/);
     assert.ok(!rule.includes('..'));
   }
-  assert.equal(admitted.length, 48);
+  assert.equal(admitted.length, 46);
   for (const file of admitted) assert.ok(statSync(resolve(root, file)).isFile(), file);
 });
 
@@ -60,7 +61,7 @@ test('all previously tracked HTML pages and every admitted file remain byte-iden
     .filter(file => file.endsWith('.html'));
   assert.equal(html.length, 32);
   for (const file of html) assert.ok(admitted.includes(file), file);
-  for (const file of admitted) {
+  for (const file of [...admitted, ...controls]) {
     assert.equal(digest(readFileSync(resolve(root, file))), digest(sourceBytes(file)), file);
   }
 });
@@ -100,6 +101,12 @@ if (origin) {
   ]);
   assert.ok(allowedOrigins.has(origin), 'Test origin must be explicitly in scope.');
   test('served public files match original source bytes and internal files return 404', { timeout: 120000 }, async () => {
+    const home = await fetch(`${origin}/`, { method: 'HEAD', signal: AbortSignal.timeout(15000) });
+    assert.equal(home.status, 200);
+    assert.equal(home.headers.get('x-content-type-options'), 'nosniff');
+    assert.equal(home.headers.get('content-security-policy'),
+      readFileSync(resolve(root, '_headers'), 'utf8').split('\n')
+        .find(line => line.trim().startsWith('Content-Security-Policy:')).trim().slice('Content-Security-Policy: '.length));
     for (const file of publicFiles) {
       const response = await fetch(`${origin}/${file}`, { signal: AbortSignal.timeout(15000) });
       assert.equal(response.status, 200, file);
