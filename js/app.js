@@ -1,263 +1,220 @@
-
-document.addEventListener('DOMContentLoaded',()=>{
- const root=document.documentElement;
- const theme=document.getElementById('theme');
- const menu=document.getElementById('menu');
- const mobile=document.getElementById('mobilemenu');
- const stored=localStorage.getItem('ral-theme');
- if(stored){root.dataset.theme=stored;if(theme)theme.textContent=stored==='dark'?'☾':'☼'}
- theme?.addEventListener('click',()=>{const next=root.dataset.theme==='dark'?'light':'dark';root.dataset.theme=next;localStorage.setItem('ral-theme',next);theme.textContent=next==='dark'?'☾':'☼'});
- menu?.addEventListener('click',()=>{const open=mobile.classList.toggle('open');menu.setAttribute('aria-expanded',String(open));menu.textContent=open?'×':'☰'});
-
- const $=id=>document.getElementById(id);
- if(!$('affordTab')) return;
- const money=new Intl.NumberFormat('en-US',{style:'currency',currency:'USD',maximumFractionDigits:0});
- const sliders=['monthlyIncome','monthlyDebt','housingRatio','totalRatio','affordInterestRate','affordLoanTerm','affordMonthlyHoa','homePrice','downPayment','interestRate','loanTerm','propertyTaxRate','annualInsurance','monthlyHoa','pmiRate'];
-
- function val(id){return Number($(id)?.value)||0}
- function paint(el){if(!el)return;const p=((+el.value-+el.min)/(+el.max-+el.min))*100;el.style.setProperty('--range-progress',p+'%')}
- function monthlyPayment(p,r,y){const n=y*12,m=(r/100)/12;return m?p*(m*Math.pow(1+m,n))/(Math.pow(1+m,n)-1):p/n}
- function supportedPrincipal(pay,r,y){const n=y*12,m=(r/100)/12;return m?pay*(Math.pow(1+m,n)-1)/(m*Math.pow(1+m,n)):pay*n}
-
- function setMode(mode){
-  const afford=mode==='afford';
-  $('affordTab').classList.toggle('active',afford);$('paymentTab').classList.toggle('active',!afford);
-  $('affordTab').setAttribute('aria-selected',String(afford));$('paymentTab').setAttribute('aria-selected',String(!afford));
-  $('affordPanel').hidden=!afford;$('paymentPanel').hidden=afford;
-  $('affordPanel').classList.toggle('active',afford);$('paymentPanel').classList.toggle('active',!afford);
-  update();
- }
-
- function update(){
-  sliders.forEach(id=>paint($(id)));
-  if($('affordTab').classList.contains('active')){
-   const income=val('monthlyIncome'), debt=val('monthlyDebt'), h=val('housingRatio')/100, t=val('totalRatio')/100;
-   const grossHousingBudget=Math.max(0,Math.min(income*h,income*t-debt));
-   const affordHoa=val('affordMonthlyHoa');
-   const budget=Math.max(0,grossHousingBudget-affordHoa);
-   const rate=val('affordInterestRate')||6.5, term=val('affordLoanTerm')||30;
-   $('monthlyIncomeValue').textContent=money.format(income);$('monthlyDebtValue').textContent=money.format(debt);
-   $('housingRatioValue').textContent=Math.round(h*100)+'%';$('totalRatioValue').textContent=Math.round(t*100)+'%';$('affordInterestRateValue').textContent=rate.toFixed(3).replace(/0+$/,'').replace(/\.$/,'')+'%';$('affordLoanTermValue').textContent=term+' years';$('affordMonthlyHoaValue').textContent=money.format(affordHoa);
-   $('resultKicker').textContent='Illustrative affordability result';$('primaryResult').innerHTML=money.format(budget)+'<span>/mo</span>';
-   $('resultSummary').textContent=affordHoa>0?'The selected HOA dues have been subtracted from the illustrative monthly housing budget.':'This is the lower of the selected housing and total debt ratio results.';
-   $('paymentBreakdown').hidden=true;$('paymentBreakdown').style.display='none';$('chartWrap').hidden=true;$('chartWrap').style.display='none';
-   $('secondaryLabelOne').textContent='Illustrative principal supported';$('secondaryResultOne').textContent=money.format(supportedPrincipal(budget,rate,term));
-   $('secondaryLabelTwo').textContent='Illustrative rate used';$('secondaryResultTwo').textContent=rate.toFixed(2)+'%';
-   $('secondaryLabelThree').textContent='Illustrative term';$('secondaryResultThree').textContent=term+' years';
-  } else {
-   const price=val('homePrice');let down=Math.min(val('downPayment'),price);$('downPayment').max=price;$('downPaymentMax').textContent=money.format(price);
-   const principal=price-down,rate=val('interestRate'),term=val('loanTerm'),tax=price*(val('propertyTaxRate')/100)/12,ins=val('annualInsurance')/12,hoa=val('monthlyHoa'),pmi=principal*(val('pmiRate')/100)/12;
-   const pi=monthlyPayment(principal,rate,term), total=pi+tax+ins+pmi+hoa, totalInterest=Math.max(0,pi*term*12-principal);
-   $('homePriceValue').textContent=money.format(price);$('downPaymentValue').textContent=money.format(down)+' ('+(price?Math.round(down/price*100):0)+'%)';
-   $('interestRateValue').textContent=rate.toFixed(3).replace(/0+$/,'').replace(/\.$/,'')+'%';$('loanTermValue').textContent=term+' years';
-   $('propertyTaxRateValue').textContent=val('propertyTaxRate').toFixed(2).replace(/0+$/,'').replace(/\.$/,'')+'%';$('annualInsuranceValue').textContent=money.format(val('annualInsurance'));$('monthlyHoaValue').textContent=money.format(hoa);$('pmiRateValue').textContent=val('pmiRate').toFixed(2)+'%';
-   $('resultKicker').textContent='Estimated monthly housing payment';$('primaryResult').innerHTML=money.format(total)+'<span>/mo</span>';$('resultSummary').textContent='Estimated principal, interest, taxes, insurance, mortgage insurance, and HOA dues.';
-   $('paymentBreakdown').hidden=false;$('paymentBreakdown').style.display='grid';$('chartWrap').hidden=false;$('chartWrap').style.display='flex';$('donutTotal').textContent=money.format(total);
-   $('piResult').textContent=money.format(pi);$('taxResult').textContent=money.format(tax);$('insuranceResult').textContent=money.format(ins);$('pmiResult').textContent=money.format(pmi);$('hoaResult').textContent=money.format(hoa);
-   const p1=pi/total*100,p2=tax/total*100,p3=ins/total*100,p4=pmi/total*100;
-   $('paymentDonut').style.background=`conic-gradient(#69BE28 0 ${p1}%,#56a4e8 ${p1}% ${p1+p2}%,#f4a300 ${p1+p2}% ${p1+p2+p3}%,#c89cff ${p1+p2+p3}% ${p1+p2+p3+p4}%,#ff8b7b ${p1+p2+p3+p4}% 100%)`;
-   $('secondaryLabelOne').textContent='Estimated loan amount';$('secondaryResultOne').textContent=money.format(principal);
-   $('secondaryLabelTwo').textContent='Estimated total interest';$('secondaryResultTwo').textContent=money.format(totalInterest);
-   $('secondaryLabelThree').textContent='Down payment percentage';$('secondaryResultThree').textContent=(price?(down/price*100).toFixed(1):0)+'%';
+/* Shared, on-device interactions. No form values are sent or persisted. */
+document.addEventListener('DOMContentLoaded', () => {
+  'use strict';
+  const $ = id => document.getElementById(id);
+  const all = (selector, parent = document) => [...parent.querySelectorAll(selector)];
+  const motion = () => matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth';
+  const focusHeading = container => {
+    const heading = container?.querySelector('h2,h3') || container;
+    if (heading) { heading.tabIndex = -1; heading.focus({ preventScroll: true }); }
+  };
+  const root = document.documentElement;
+  let stored;
+  try { stored = localStorage.getItem('ral-theme'); } catch { /* Storage is optional. */ }
+  if (['light', 'dark'].includes(stored)) root.dataset.theme = stored;
+  function paintTheme() {
+    if (!$('theme')) return;
+    const dark = root.dataset.theme === 'dark';
+    $('theme').textContent = dark ? '☾' : '☼';
+    $('theme').setAttribute('aria-label', `Switch to ${dark ? 'light' : 'dark'} theme`);
+    $('theme').setAttribute('aria-pressed', String(dark));
   }
- }
-
- function add(container,label,value){const d=document.createElement('div');d.innerHTML=`<span>${label}</span><strong>${value}</strong>`;container.appendChild(d)}
- function buildReport(){
-  const afford=$('affordTab').classList.contains('active'), inputs=$('pdfInputs'), details=$('pdfDetails');inputs.innerHTML='';details.innerHTML='';
-  $('pdfDate').textContent=new Date().toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'});$('pdfMode').textContent=afford?'How much can I afford?':'Estimate my payment';
-  if(afford){add(inputs,'Gross monthly income',$('monthlyIncomeValue').textContent);add(inputs,'Monthly debts',$('monthlyDebtValue').textContent);add(inputs,'Housing ratio',$('housingRatioValue').textContent);add(inputs,'Total debt ratio',$('totalRatioValue').textContent);add(inputs,'Illustrative interest rate',$('affordInterestRateValue').textContent);add(inputs,'Loan term',$('affordLoanTermValue').textContent);add(inputs,'Monthly HOA dues',$('affordMonthlyHoaValue').textContent)}
-  else{add(inputs,'Home price',$('homePriceValue').textContent);add(inputs,'Down payment',$('downPaymentValue').textContent);add(inputs,'Interest rate',$('interestRateValue').textContent);add(inputs,'Loan term',$('loanTermValue').textContent);add(inputs,'Property tax rate',$('propertyTaxRateValue').textContent);add(inputs,'Annual insurance',$('annualInsuranceValue').textContent);add(inputs,'Monthly HOA',$('monthlyHoaValue').textContent);add(inputs,'Mortgage insurance rate',$('pmiRateValue').textContent)}
-  $('pdfPrimaryLabel').textContent=$('resultKicker').textContent;$('pdfPrimaryValue').textContent=$('primaryResult').textContent;$('pdfPrimarySummary').textContent=$('resultSummary').textContent;
-  add(details,$('secondaryLabelOne').textContent,$('secondaryResultOne').textContent);add(details,$('secondaryLabelTwo').textContent,$('secondaryResultTwo').textContent);add(details,$('secondaryLabelThree').textContent,$('secondaryResultThree').textContent);
- }
- $('affordTab').addEventListener('click',()=>setMode('afford'));$('paymentTab').addEventListener('click',()=>setMode('payment'));sliders.forEach(id=>$(id)?.addEventListener('input',update));
- $('savePdfButton').addEventListener('click',()=>{buildReport();document.body.classList.add('printing-calculator-report');window.print()});window.addEventListener('afterprint',()=>document.body.classList.remove('printing-calculator-report'));
- update();
-});
-
-
-document.addEventListener('DOMContentLoaded',()=>{
- const steps=[...document.querySelectorAll('.wizard-step')];
- if(!steps.length) return;
- const answers={}; let current=1;
- const back=document.getElementById('wizardBack'),next=document.getElementById('wizardNext'),result=document.getElementById('wizardResult');
- const progress=[...document.querySelectorAll('#wizardProgress span')];
-
- function draw(){
-  steps.forEach(s=>s.classList.toggle('active',Number(s.dataset.step)===current));
-  progress.forEach((p,i)=>p.classList.toggle('active',i<current));
-  back.hidden=current===1;
-  next.textContent=current===5?'See My Results':'Continue';
- }
- document.querySelectorAll('.wizard-option').forEach(btn=>{
-  btn.addEventListener('click',()=>{
-   btn.closest('.wizard-options').querySelectorAll('.wizard-option').forEach(x=>x.classList.remove('selected'));
-   btn.classList.add('selected');answers[btn.dataset.key]=btn.dataset.value;
+  $('theme')?.addEventListener('click', () => {
+    root.dataset.theme = root.dataset.theme === 'dark' ? 'light' : 'dark';
+    try { localStorage.setItem('ral-theme', root.dataset.theme); } catch { /* Continue without persistence. */ }
+    paintTheme();
   });
- });
- function showResult(){
-  steps.forEach(s=>s.classList.remove('active'));result.classList.add('active');next.hidden=true;back.hidden=false;
-  let programs=[],reasons=[];
-  if(answers.jumbo==='yes'){programs.push('Jumbo');reasons.push('The expected loan amount may be above conforming limits.');}
-  if(answers.military==='yes'&&answers.primary==='yes'){programs.push('VA');reasons.push('Possible VA eligibility may be worth reviewing.');}
-  if(answers.rural==='yes'&&answers.primary==='yes'){programs.push('USDA');reasons.push('The location and household may be worth checking for USDA eligibility.');}
-  if(answers.primary==='yes'&&answers.down==='low'){programs.push('FHA');reasons.push('A lower down payment and FHA qualification features may be worth comparing.');}
-  programs.push('Conventional');reasons.push('Conventional financing is broadly used and may provide a useful comparison point.');
-  programs=[...new Set(programs)];
-  document.getElementById('recommendationTitle').textContent=programs.slice(0,3).join(', ');
-  document.getElementById('recommendationReason').textContent=reasons.join(' ');
- }
- next.addEventListener('click',()=>{if(!steps[current-1].querySelector('.selected')) return;if(current<5){current++;draw()}else showResult()});
- back.addEventListener('click',()=>{if(result.classList.contains('active')){result.classList.remove('active');next.hidden=false;current=5;draw()}else if(current>1){current--;draw()}});
- draw();
-});
-
-
-document.addEventListener('DOMContentLoaded',()=>{
-  const snapshotButtons=[...document.querySelectorAll('.snapshot-program')];
-  const snapshotPayment=document.getElementById('snapshotPayment');
-  const snapshotRing=document.querySelector('.snapshot-ring strong');
-  snapshotButtons.forEach(btn=>btn.addEventListener('click',()=>{
-    snapshotButtons.forEach(x=>x.classList.remove('active'));
-    btn.classList.add('active');
-    if(snapshotPayment) snapshotPayment.textContent='$'+Number(btn.dataset.payment).toLocaleString('en-US');
-    if(snapshotRing) snapshotRing.textContent=Number(btn.dataset.rate).toFixed(3).replace(/0+$/,'').replace(/\.$/,'')+'%';
-  }));
-
-  const metrics=[...document.querySelectorAll('.metric-value')];
-  const revealElements=[...document.querySelectorAll('.reveal')];
-  const observer=new IntersectionObserver(entries=>{
-    entries.forEach(entry=>{
-      if(!entry.isIntersecting) return;
-      entry.target.classList.add('visible');
-      if(entry.target.classList.contains('metric-card')){
-        const el=entry.target.querySelector('.metric-value');
-        if(el && !el.dataset.done){
-          el.dataset.done='true';
-          const target=Number(el.dataset.count)||0;
-          let value=0;
-          const step=Math.max(1,Math.ceil(target/35));
-          const timer=setInterval(()=>{value=Math.min(target,value+step);el.textContent=value+(target===100?'%':target===24?' hrs':'');if(value>=target)clearInterval(timer)},32);
-        }
-      }
-      observer.unobserve(entry.target);
-    });
-  },{threshold:.16});
-  revealElements.forEach(el=>observer.observe(el));
-  document.querySelectorAll('.metric-card').forEach(el=>observer.observe(el));
-
-  const finderSteps=[...document.querySelectorAll('.loan-finder-step')];
-  const finderResult=document.getElementById('loanFinderResult');
-  const finderTitle=document.getElementById('loanFinderTitle');
-  const finderCopy=document.getElementById('loanFinderCopy');
-  const answers={}; let step=1;
-  document.querySelectorAll('.finder-options button').forEach(btn=>btn.addEventListener('click',()=>{
-    btn.closest('.finder-options').querySelectorAll('button').forEach(x=>x.classList.remove('selected'));
-    btn.classList.add('selected');answers[btn.dataset.key]=btn.dataset.value;
-    setTimeout(()=>{
-      if(step<3){step++;finderSteps.forEach(s=>s.classList.toggle('active',Number(s.dataset.step)===step))}
-      else{
-        finderSteps.forEach(s=>s.classList.remove('active'));finderResult.classList.add('active');
-        let programs=['Conventional'],reasons=[];
-        if(answers.military==='yes'){programs.unshift('VA');reasons.push('Possible military eligibility makes VA worth reviewing.')}
-        if(answers.down==='zero' && answers.military!=='yes'){programs.unshift('USDA');reasons.push('Zero-down possibilities may be worth discussing, subject to area and income eligibility.')}
-        if((answers.down==='low'||answers.goal==='first') && answers.military!=='yes'){programs.unshift('FHA');reasons.push('A lower down payment and FHA qualification features may be worth comparing.')}
-        if(answers.goal==='refi'){programs=['Conventional','FHA','VA'];reasons=['Refinance options depend on the current loan, equity, eligibility, and financial goals.']}
-        finderTitle.textContent=[...new Set(programs)].slice(0,3).join(', ');
-        finderCopy.textContent=reasons.join(' ') || 'Conventional financing provides a useful comparison point for many borrowers.';
-      }
-    },180);
-  }));
-
-  const journeyDetail=document.getElementById('journeyDetail');
-  document.querySelectorAll('.journey-node').forEach(btn=>btn.addEventListener('click',()=>{
-    document.querySelectorAll('.journey-node').forEach(x=>x.classList.remove('active'));
-    btn.classList.add('active');if(journeyDetail)journeyDetail.textContent=btn.dataset.copy;
-  }));
-
-  const miniIds=['miniPrice','miniDown','miniRate'];
-  const payment=(p,r,n=360)=>{const m=(r/100)/12;return m?p*(m*Math.pow(1+m,n))/(Math.pow(1+m,n)-1):p/n};
-  function updateMini(){
-    const price=Number(document.getElementById('miniPrice')?.value)||0;
-    const down=Math.min(Number(document.getElementById('miniDown')?.value)||0,price);
-    const rate=Number(document.getElementById('miniRate')?.value)||0;
-    document.getElementById('miniPriceValue').textContent='$'+price.toLocaleString('en-US');
-    document.getElementById('miniDownValue').textContent='$'+down.toLocaleString('en-US');
-    document.getElementById('miniRateValue').textContent=rate.toFixed(3).replace(/0+$/,'').replace(/\.$/,'')+'%';
-    document.getElementById('miniPayment').textContent='$'+Math.round(payment(price-down,rate)).toLocaleString('en-US')+'/mo';
+  paintTheme();
+  function setMenu(open) {
+    $('mobilemenu')?.classList.toggle('open', open);
+    $('menu')?.setAttribute('aria-expanded', String(open));
+    $('menu')?.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+    if ($('menu')) $('menu').textContent = open ? '×' : '☰';
   }
-  miniIds.forEach(id=>document.getElementById(id)?.addEventListener('input',updateMini));updateMini();
+  $('menu')?.addEventListener('click', () => setMenu($('menu').getAttribute('aria-expanded') !== 'true'));
+  all('#mobilemenu a').forEach(link => link.addEventListener('click', () => setMenu(false)));
+  function setQuickActions(open) {
+    $('floatingMenu')?.classList.toggle('open', open);
+    $('floatingToggle')?.setAttribute('aria-expanded', String(open));
+    $('floatingToggle')?.setAttribute('aria-label', open ? 'Close quick actions' : 'Open quick actions');
+    if ($('floatingToggle')) $('floatingToggle').textContent = open ? '×' : '+';
+  }
+  $('floatingToggle')?.addEventListener('click', () => setQuickActions($('floatingToggle').getAttribute('aria-expanded') !== 'true'));
+  document.addEventListener('keydown', event => {
+    if (event.key !== 'Escape') return;
+    if ($('menu')?.getAttribute('aria-expanded') === 'true') { setMenu(false); $('menu').focus(); }
+    if ($('floatingToggle')?.getAttribute('aria-expanded') === 'true') { setQuickActions(false); $('floatingToggle').focus(); }
+  });
+  document.addEventListener('click', event => {
+    if (!event.target.closest('.header')) setMenu(false);
+    if (!event.target.closest('.floating-actions')) setQuickActions(false);
+  });
 
-  const slides=[...document.querySelectorAll('.testimonial-slide')];let slide=0;
-  function showSlide(i){slides.forEach((s,n)=>s.classList.toggle('active',n===i))}
-  document.getElementById('testimonialNext')?.addEventListener('click',()=>{slide=(slide+1)%slides.length;showSlide(slide)});
-  document.getElementById('testimonialPrev')?.addEventListener('click',()=>{slide=(slide-1+slides.length)%slides.length;showSlide(slide)});
-
-  const floatingToggle=document.getElementById('floatingToggle'),floatingMenu=document.getElementById('floatingMenu');
-  floatingToggle?.addEventListener('click',()=>{const open=floatingMenu.classList.toggle('open');floatingToggle.setAttribute('aria-expanded',String(open));floatingToggle.textContent=open?'×':'+'});
-});
-
-
-document.addEventListener('DOMContentLoaded',()=>{
-  const form=document.getElementById('prequalForm');
-  if(form){
-    const steps=[...form.querySelectorAll('.prequal-step')];
-    const progress=[...document.querySelectorAll('.prequal-progress span')];
-    const back=document.getElementById('prequalBack');
-    const next=document.getElementById('prequalNext');
-    const nav=document.getElementById('prequalNav');
-    const success=document.getElementById('prequalSuccess');
-    const answers={};
-    let current=1;
-
-    function draw(){
-      steps.forEach(step=>step.classList.toggle('active',Number(step.dataset.step)===current));
-      progress.forEach((bar,index)=>bar.classList.toggle('active',index<current));
-      back.hidden=current===1;
-      next.textContent=current===5?'Prepare My Inquiry':'Continue';
-    }
-
-    form.querySelectorAll('.prequal-options button').forEach(button=>{
-      button.addEventListener('click',()=>{
-        button.closest('.prequal-options').querySelectorAll('button').forEach(x=>x.classList.remove('selected'));
-        button.classList.add('selected');
-        answers[button.dataset.name]=button.dataset.value;
-      });
+  // Content is visible without JavaScript; motion never gates readability.
+  all('.reveal').forEach(element => element.classList.add('visible'));
+  all('.metric-value').forEach(element => { element.textContent = element.dataset.count || element.textContent; });
+  all('.faq-item').forEach(item => {
+    const button = item.querySelector('button'), answer = item.querySelector('p');
+    if (!button || !answer) return;
+    button.addEventListener('click', () => {
+      const open = button.getAttribute('aria-expanded') !== 'true';
+      button.setAttribute('aria-expanded', String(open)); answer.hidden = !open;
+      if (button.querySelector('span')) button.querySelector('span').textContent = open ? '−' : '+';
     });
-
-    function validStep(){
-      const step=steps[current-1];
-      if(current<=2) return Boolean(step.querySelector('.selected'));
-      const required=[...step.querySelectorAll('[required]')];
-      let valid=true;
-      required.forEach(field=>{
-        if((field.type==='checkbox'&&!field.checked)||(!field.value)){
-          field.setAttribute('aria-invalid','true');valid=false;
-        }else field.removeAttribute('aria-invalid');
-      });
-      return valid;
+  });
+  const exclusive = (buttons, selected) => buttons.forEach(button => {
+    const active = button === selected;
+    button.classList.toggle('active', active);
+    button.setAttribute('aria-pressed', String(active));
+  });
+  const journey = all('.journey-node');
+  journey.forEach(button => button.addEventListener('click', () => {
+    exclusive(journey, button); if ($('journeyDetail')) $('journeyDetail').textContent = button.dataset.copy;
+  }));
+  if (journey.length) exclusive(journey, journey[0]);
+  if ($('miniPrice')) {
+    function updateMini() {
+      const price = Number($('miniPrice').value);
+      $('miniDown').max = price;
+      const down = Math.min(Number($('miniDown').value), price), rate = Number($('miniRate').value);
+      $('miniDown').value = down;
+      $('miniPriceValue').textContent = '$' + price.toLocaleString('en-US');
+      $('miniDownValue').textContent = '$' + down.toLocaleString('en-US');
+      $('miniRateValue').textContent = rate.toFixed(3).replace(/0+$/, '').replace(/\.$/, '') + '%';
+      $('miniPayment').textContent = '$' + Math.round(RalMath.monthlyPayment(price - down, rate, 30)).toLocaleString('en-US') + '/mo';
     }
+    ['miniPrice', 'miniDown', 'miniRate'].forEach(id => $(id).addEventListener('input', updateMini));
+    updateMini();
+  }
 
-    next.addEventListener('click',()=>{
-      if(!validStep()) return;
-      if(current<5){current++;draw();window.scrollTo({top:form.offsetTop-110,behavior:'smooth'})}
-      else{
-        steps.forEach(step=>step.classList.remove('active'));
-        success.classList.add('active');
-        nav.hidden=true;
-        progress.forEach(bar=>bar.classList.add('active'));
+  // Explicit Continue/Back controls prevent rapid clicks from skipping steps.
+  function multiStep({ steps, next, back, result, error, progress, finish, validate, reset }) {
+    if (!steps.length || !next || !back) return;
+    let current = 0, completed = false;
+    function draw(moveFocus = false) {
+      steps.forEach((step, index) => {
+        step.classList.toggle('active', !completed && index === current);
+        step.hidden = completed || index !== current;
+      });
+      result.hidden = !completed; result.classList.toggle('active', completed);
+      back.hidden = !completed && current === 0;
+      next.hidden = completed;
+      next.textContent = current === steps.length - 1 ? (next.dataset.finish || 'See My Results') : 'Continue';
+      progress?.forEach((bar, index) => {
+        bar.classList.toggle('active', completed || index <= current);
+        if (index === current) bar.setAttribute('aria-current', 'step'); else bar.removeAttribute('aria-current');
+      });
+      if (error) { error.textContent = ''; error.hidden = true; }
+      if (moveFocus) focusHeading(completed ? result : steps[current]);
+    }
+    function advance() {
+      const step = steps[current];
+      const message = validate ? validate(step, current) : (step.querySelector('.selected') ? '' : 'Choose an option to continue.');
+      if (message) {
+        error.textContent = message; error.hidden = false;
+        const field = step.querySelector('[aria-invalid="true"],button,input,select');
+        field?.focus(); return;
       }
+      if (current < steps.length - 1) current++;
+      else { completed = true; finish(); }
+      draw(true);
+    }
+    next.addEventListener('click', advance);
+    back.addEventListener('click', () => { if (completed) completed = false; else current = Math.max(0, current - 1); draw(true); });
+    const form = next.closest('form');
+    form?.addEventListener('submit', event => { event.preventDefault(); if (!completed) advance(); });
+    reset?.addEventListener('click', () => {
+      form.reset();
+      all('[data-value]', form).forEach(button => { button.classList.remove('selected'); button.setAttribute('aria-pressed', 'false'); });
+      all('[aria-invalid]', form).forEach(field => field.removeAttribute('aria-invalid'));
+      $('inquirySummary')?.replaceChildren();
+      current = 0; completed = false; draw(true);
+      if ($('worksheetClearStatus')) $('worksheetClearStatus').textContent = 'Worksheet cleared. Nothing was sent to the team.';
     });
-    back.addEventListener('click',()=>{if(current>1){current--;draw()}});
+    steps.forEach(step => all('[data-value]', step).forEach(button => {
+      button.setAttribute('aria-pressed', String(button.classList.contains('selected')));
+      button.addEventListener('click', () => {
+        all('[data-value]', step).forEach(option => {
+          const selected = option === button;
+          option.classList.toggle('selected', selected); option.setAttribute('aria-pressed', String(selected));
+        });
+        if (error) { error.hidden = true; error.textContent = ''; }
+      });
+    }));
     draw();
   }
+  if ($('wizardNext')) {
+    multiStep({ steps: all('.wizard-step'), next: $('wizardNext'), back: $('wizardBack'), result: $('wizardResult'), error: $('wizardError'), progress: all('#wizardProgress span'), finish() {
+      const answers = Object.fromEntries(all('.wizard-option.selected').map(button => [button.dataset.key, button.dataset.value]));
+      const programs = [], reasons = [];
+      if (answers.jumbo === 'yes') { programs.push('Jumbo'); reasons.push('Discuss the proposed loan amount and applicable loan limits.'); }
+      if (answers.military === 'yes' && answers.primary === 'yes') { programs.push('VA'); reasons.push('Possible military eligibility requires a documented review.'); }
+      if (answers.rural === 'yes' && answers.primary === 'yes') { programs.push('USDA'); reasons.push('Property-area and household-income requirements need review.'); }
+      if (answers.primary === 'yes' && answers.down === 'low') { programs.push('FHA'); reasons.push('Compare down-payment and mortgage-insurance considerations.'); }
+      programs.push('Conventional');
+      $('recommendationTitle').textContent = programs.join(', ');
+      $('recommendationReason').textContent = reasons.join(' ') || 'Use conventional financing as a comparison point in a complete review.';
+    } });
+  }
+  if ($('prequalForm')) {
+    multiStep({ steps: all('.prequal-step'), next: $('prequalNext'), back: $('prequalBack'), result: $('prequalSuccess'), error: $('prequalError'), progress: all('.prequal-progress span'), reset: $('clearWorksheet'), validate(step, current) {
+      if (current < 2) return step.querySelector('.selected') ? '' : 'Choose an option to continue.';
+      let firstInvalid;
+      all('input,select', step).forEach(field => {
+        const valid = field.checkValidity() && (!field.required || field.type === 'checkbox' || field.value.trim().length > 0);
+        field.toggleAttribute('aria-invalid', !valid);
+        if (!valid) { field.setAttribute('aria-invalid', 'true'); firstInvalid ||= field; }
+      });
+      return firstInvalid ? `Please check ${document.querySelector(`label[for="${firstInvalid.id}"]`)?.textContent || 'the required field'}.` : '';
+    }, finish() {
+      const summary = $('inquirySummary'); summary.replaceChildren();
+      const fields = [
+        ['Goal', document.querySelector('[data-name="goal"].selected')?.dataset.value],
+        ['Timeline', document.querySelector('[data-name="timeline"].selected')?.dataset.value],
+        ['State', $('propertyState').value || 'To discuss'],
+        ['Area', $('propertyCity').value || 'To discuss'],
+        ['Next step', $('contactPreference').value === 'Email' ? 'Email the team to arrange a secure conversation. Do not include sensitive financial information.' : 'Call the team to arrange a secure conversation.']
+      ];
+      fields.forEach(([label, value]) => { const li = document.createElement('li'); li.textContent = `${label}: ${value}`; summary.append(li); });
+    } });
+    // Enable only after the local submit handler is attached. Without JavaScript,
+    // this form cannot fall back to a GET request containing personal details.
+    all('input,select,button', $('prequalForm')).forEach(control => { control.disabled = false; });
+  }
 
-  const guideForm=document.getElementById('guideForm');
-  guideForm?.addEventListener('submit',event=>{
-    event.preventDefault();
-    const button=guideForm.querySelector('button');
-    button.textContent='Guide request prepared';
-    button.disabled=true;
+  const checkboxes = all('.checklist input[type="checkbox"]');
+  if (checkboxes.length) {
+    const update = () => {
+      const count = checkboxes.filter(box => box.checked).length;
+      $('checklistProgress').value = count; $('checklistCount').textContent = `${count} of ${checkboxes.length} prepared`;
+    };
+    checkboxes.forEach(box => box.addEventListener('change', update));
+    $('resetChecklist')?.addEventListener('click', () => { checkboxes.forEach(box => { box.checked = false; }); update(); });
+    update();
+  }
+  if ($('glossarySearch')) {
+    const cards = all('#glossaryGrid > *');
+    const update = () => {
+      const query = $('glossarySearch').value.trim().toLocaleLowerCase(); let count = 0;
+      cards.forEach(card => { card.hidden = !card.textContent.toLocaleLowerCase().includes(query); if (!card.hidden) count++; });
+      $('glossaryCount').textContent = count ? `${count} terms found` : 'No matching terms. Try a shorter word or clear the search.';
+    };
+    $('glossarySearch').addEventListener('input', update); update();
+  }
+  if ($('refinanceForm')) {
+    const update = () => {
+      const fields = ['refiCost','refiCurrent','refiProposed'].map($);
+      const invalid = fields.some(field => field.value === '' || !field.checkValidity());
+      const result = invalid ? null : RalMath.breakEven(...fields.map(field => Number(field.value)));
+      $('refiResult').textContent = invalid ? 'Check your inputs' : result ? `${result.months} months` : 'No payment break-even';
+      $('refiSummary').textContent = invalid ? 'Enter nonnegative amounts for all three fields.' : result ? `At $${result.savings.toLocaleString('en-US')} less per month, these costs are recovered in approximately ${(result.months / 12).toFixed(1)} years. This does not measure total interest or the effect of changing the loan term.` : 'The proposed payment must be lower to recover costs through monthly payment savings.';
+    };
+    all('input', $('refinanceForm')).forEach(field => field.addEventListener('input', update));
+    $('refinanceForm').addEventListener('submit', event => { event.preventDefault(); update(); }); update();
+  }
+  all('[data-print-page]').forEach(button => button.addEventListener('click', () => window.print()));
+  all('.help-tip').forEach(button => {
+    button.setAttribute('aria-label', button.dataset.tooltip);
+    button.addEventListener('click', () => button.classList.toggle('show-help'));
   });
 });

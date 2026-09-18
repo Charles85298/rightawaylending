@@ -1,179 +1,80 @@
-# Right Away Lending Website Package
+# Right Away Lending — website brand update
 
-## Package contents
+The complete website has been migrated to the navy, electric blue, Right Away red, chrome, and light-surface design shown in the supplied homepage reference. It contains 34 pages: the original 32, plus dedicated investment-property and refinance pages.
 
-- `index.html` — complete responsive homepage
-- `css/styles.css` — design system and responsive styles
-- `js/app.js` — theme toggle, mobile menu, FAQ, and calculator behavior
-- `images/logo-transparent.png` — approved transparent logo
-- `images/hero-home.jpg` — Arizona home hero image
-- `404.html` — simple not-found page
-- `robots.txt` and `sitemap.xml` — launch placeholders
-- `assets/manifest.json` — basic web app metadata
-- `documents/` — project source materials
+**Use `dist/` for the website build. Do not publish the repository root:** it preserves original internal source documents and historical artwork that are excluded from the public package.
 
-## Local preview
+## Run locally
 
-Open `index.html` in a browser. For the most accurate behavior, serve the folder with a local web server:
+Requires Node.js 24.19.0 (pinned in `.node-version`) and npm. Browser pages have no third-party runtime dependencies.
 
-```bash
-python -m http.server 8080
+```powershell
+npm ci
+npm test
+npm run build
+npm start
 ```
 
-Then visit:
+Open `http://127.0.0.1:4175`. To choose another port:
 
-```text
-http://localhost:8080
+```powershell
+npm start -- --port 4180
 ```
 
-## Before launch
+The server binds only to the local computer. The browser uses local relative links, so reviewing a loan program stays in this candidate instead of navigating to the live site.
 
-1. Replace `https://www.example.com/` in `robots.txt` and `sitemap.xml` with the final domain.
-2. Confirm the official contact email and update any placeholder email addresses.
-3. Connect the pre-qualification CTA to the approved secure application or CRM.
-4. Replace review and team placeholders with approved content.
-5. Add final privacy, licensing, Equal Housing, and state-specific disclosures after compliance review.
-6. Add analytics and Search Console ownership.
-7. Compress and convert production imagery to WebP/AVIF if desired.
-8. Test across Chrome, Safari, Firefox, Edge, iOS, and Android.
+## What changed
 
-## Brand tokens
+- Shared header, mobile navigation, footer, page heroes, forms, cards, tables, labels, focus states, dark mode, favicons, and print styling across the entire site.
+- The reference homepage, its lightning explorer, and its loan finder now connect to the site's actual program pages.
+- Fixed-rate mortgage and affordability calculations, a refinance break-even tool, printable mortgage summaries, and safe handling of zero balances and down-payment limits.
+- Working five-step educational wizard and local inquiry preparation with Back navigation, validation, and accurate completion messages.
+- Checklist progress/reset, glossary search/empty states, all-resource navigation, and immediate guide access.
+- Browser storage failure no longer breaks the site; only the theme preference is stored.
+- Offline support caches a limited set of public educational pages and named static assets. It does not cache inquiry URLs, query data, third-party requests, or form submissions.
+- Five-state company/licensing disclosures, a company-specific NMLS Consumer Access link, and the original Texas consumer complaint notice.
+- The owner-confirmed phone/email workflow includes a local worksheet with validation, accurate completion messages, and a Clear Worksheet control.
+- The candidate verification workflow tests/builds without publishing. The retained GitHub Pages workflow is manual and publishes only `dist`; it is not proof of a deployment to the company domain.
 
-- Navy: `#002244`
-- Support Blue: `#245998`
-- Action Green: `#69BE28`
-- Wolf Gray: `#A5ACAF`
-- Ice White: `#F8FAFC`
-- Charcoal: `#1E293B`
+## Structure
 
-## Deployment
+| Location | Purpose |
+| --- | --- |
+| Root HTML pages | Editable static page content and shared shell |
+| `css/tokens.css` | Reference brand tokens |
+| `css/styles.css` | Reference design and component styling |
+| `css/site.css` | Final shared-page, responsive, contrast, and print rules |
+| `js/app.js` | Shared navigation, forms, wizard, glossary, checklist, and tools |
+| `js/home.js` | Homepage lightning explorer and loan finder |
+| `js/calculator.js` | Detailed calculator UI and print report |
+| `js/mortgage-math.js` | Tested financial arithmetic, without pricing or eligibility decisions |
+| `scripts/check-site.cjs` | Static site integrity checks |
+| `scripts/build.cjs` / `scripts/public-assets.cjs` | Validated exact-inventory public build |
+| `scripts/public-assets.json` | 55 served files and two parsed hosting controls |
+| `scripts/serve.cjs` | Local preview server |
+| `tests/` | 54 automated checks |
+| `documents/BRAND-SYSTEM.md` | Implemented design system |
+| `documents/RELEASE-VERIFICATION.md` | Verification evidence and limits |
+| `dist/` | Generated website files only |
 
-This folder can be uploaded directly to:
+## Review and launch boundary
 
-- GitHub Pages
-- Netlify
-- Cloudflare Pages
-- cPanel/shared hosting
-- Any static web host
+**The redesign is locally verified and prepared for release; it is not deployed.** Correct Cloudflare access is established. Company confirmations, the release-time build/HTTPS settings, and final publication approval remain in `documents/LAUNCH-HOLD.md`.
 
-No build process is required.
+The original site did not contain a working inquiry-submission backend or appointment-booking integration. The candidate accurately provides on-device inquiry preparation and direct phone/email contact. Entries are not transmitted or stored. No mortgage application is submitted and no appointment is booked.
 
-## Version 2 additions
+The placeholder privacy, terms, and licensing pages were replaced. NMLS Consumer Access was read directly and lists six approved/authorized entries across Arizona, Florida, Michigan, Texas, and Washington. The source record and applicable advertising/disclosure references are documented in `documents/COMPLIANCE-SOURCES.md`. This is not regulator certification or a substitute for the company's financial privacy notice. Florida's displayed renewal-year discrepancy and any continuing Washington order obligations remain for company confirmation.
 
-- `first-time-buyers.html`
-- `homebuyer-guide.html`
-- `down-payment-assistance.html`
-- `document-checklist.html`
-- `mortgage-glossary.html`
-- `affordability-calculator.html`
+Cloudflare Worker `rightawaylending` serves both company hostnames from `Charles85298/rightawaylending`, production branch `main`. The current live source is `5772cc93ca469bf92b0a556731c60ae3e76bbf04`, the earlier UI with the approved asset-publication security fix. This launch branch preserves that upstream history and imports the reviewed redesign. No force-push or unrelated-history replacement is needed.
 
-These pages are educational and contain compliance-aware language. Final content, links, disclosures, program details, and legal review are still required before launch.
+At approved release time set the Worker's build command to `npm ci --ignore-scripts --no-audit --no-fund && npm test && npm run build`; keep the existing pinned `npx wrangler@4.134.0 deploy` command. The asset directory is `./dist`. Workers Builds uses the dashboard build command, not a Wrangler custom build block. Do not publish this source root or run the separate manual GitHub Pages publication as a substitute for the company-domain release.
 
-- Version 3 updates the affordability calculator with interactive range sliders and live formatted values.
+## Preservation and rollback
 
-- Version 4 adds an interest-rate slider, live illustrative principal-balance estimate, and accessible hover/focus help comments for every affordability slider.
+The original ZIP and the ZIP-derived review repository at `C:\Users\teedu\Projects\Right Away Lending Website` remain untouched. Its reviewed candidate is `3f9e4a937f8e2aabb9da49dbefb16a2338b2d569`. This launch worktree is `C:\Users\teedu\Projects\Right Away Lending Website Launch`, branch `codex/website-redesign-launch`, based on live-source commit `5772cc93ca469bf92b0a556731c60ae3e76bbf04`. The Command Hub CRM is outside this release.
 
-- Version 5 corrects the calculator interaction: the interest-rate slider now directly changes estimated monthly principal and interest. A loan-amount slider was added, and the result is compared with the illustrative housing budget.
+The known-good live Worker version is `dfd5482d-97b8-4b8e-9b36-63fa894b19c6`. A rollback would restore the earlier UI plus its security fix; do not roll back to pre-fix versions. See the release checklist for the difference between Worker-version rollback and source rebuild.
 
-- Version 6 upgrades the affordability tool into a two-mode mortgage calculator:
-  - How much can I afford?
-  - Estimate my payment
-  - Home price, down payment, 2%–12% rate, 15/20/25/30-year term, taxes, insurance, HOA, and mortgage-insurance controls
-  - Live payment breakdown and visual composition bar
-  - Estimated total interest and loan amount
+Only the generated build folder is cleared by `npm run build`. Its absolute path is checked before cleanup. The current public file hashes are written to `artifacts/public-files.sha256`.
 
-- Version 7 adds a branded calculator report:
-  - Save Branded PDF button
-  - Right Away Lending logo and brand colors
-  - Current calculator inputs and results
-  - Payment breakdown and assumptions
-  - NMLS and educational disclosure
-  - Uses the browser print dialog; choose "Save as PDF" as the destination
-
-- Version 9 improves calculator readability and visual hierarchy:
-  - Higher-contrast white text in the graph/results area
-  - Larger 280px payment donut
-  - Stronger central payment typography
-  - Card-style legend and payment rows
-  - Larger numeric values
-  - Full-width green Save My Mortgage Report (PDF) action
-
-- Version 10 fixes clipped graph labels by removing the separate right-side legend.
-- The donut chart is centered and enlarged to 320px.
-- Payment breakdown rows now act as the legend with matching color dots and values.
-
-- Version 11 adds visible affordability-mode sliders for:
-  - Illustrative interest rate from 2% to 12%
-  - Loan term with 15-year and 30-year choices
-- These values now update the supported-principal estimate and appear in the branded PDF report.
-
-- Version 12 fixes calculator result behavior:
-  - The donut total now updates from principal and interest, taxes, insurance, mortgage insurance, and HOA dues.
-  - The payment graph is forcibly hidden in affordability mode and shown only in payment-estimate mode.
-  - Monthly HOA dues are now available in both calculator modes.
-  - In affordability mode, HOA dues reduce the monthly amount available for principal and interest.
-  - HOA values are included in the branded PDF report.
-
-- Version 13 adds the Mortgage Comparison Center:
-  - mortgage-comparison.html
-  - conventional-loans.html
-  - fha-loans.html
-  - va-loans.html
-  - usda-loans.html
-  - jumbo-loans.html
-  - loan-qualification-wizard.html
-  - responsive comparison table
-  - interactive educational recommendation wizard
-
-- Version 14 repairs mobile responsiveness across the homepage and shared page system:
-  - Compact mobile header and full-screen navigation drawer
-  - Smaller responsive logo and typography
-  - Single-column hero actions, trust signals, cards, footer, and CTA sections
-  - Proper mobile spacing and no horizontal overflow
-  - Touch-friendly comparison tables, calculators, tooltips, and sticky actions
-  - Extra optimization for screens below 390px
-
-- Version 15 adds a dedicated tablet responsive pass for 701px–1100px:
-  - Tablet navigation with logo, CTA, theme toggle, and hamburger
-  - Two-column trust bar and card layouts
-  - Tablet-specific hero sizing and image focal point
-  - 60/40 calculator layout with sticky results panel
-  - Two-column footer
-  - Improved comparison tables and wizard controls
-  - Landscape tablet and iPad Pro portrait refinements
-
-- Version 16 introduces the flagship homepage:
-  - Premium hero and live mortgage snapshot
-  - Animated metrics
-  - Interactive loan finder
-  - Seven-step homebuying timeline
-  - Embedded calculator preview
-  - Premium feature cards
-  - Testimonial carousel
-  - Floating quick-action menu
-  - Scroll-reveal animation with reduced-motion support
-  - Responsive desktop, tablet, and mobile layouts
-
-- Version 17 adds the formal UI design system:
-  - `css/tokens.css`
-  - `ui-components.html`
-  - `documents/Design-System-v17.md`
-  - Standardized focus states, hover interactions, motion reduction, and shared design tokens
-
-- Version 18 adds lead-generation infrastructure:
-  - `prequalify.html`
-  - `schedule.html`
-  - `buyer-guide.html`
-  - Multi-step inquiry flow with validation
-  - Scheduling platform placeholder
-  - Lead-magnet capture interface
-  - Updated homepage and navigation CTAs
-  - No personal data is transmitted until a CRM or secure application is connected
-
-- Version 19 adds production-quality SEO, accessibility, performance, compliance, and resource-center foundations.
-- All legal, licensing, and policy content remains placeholder material pending qualified review.
-- Replace `https://www.example.com` with the final production domain before launch.
-
-- Version 20 is the launch-foundation release.
-- It includes service-worker support, analytics hooks, security configuration examples, launch documentation, QA documentation, and deployment status tracking.
-- The site is still a static demonstration until the CRM, scheduler, secure application, production domain, and approved compliance content are connected.
+Stop an active local Wrangler preview before rebuilding on Windows: its directory watcher can hold the generated `dist` directory open. Then rebuild and restart the preview. Do not delete or modify another session's working directory to work around a file lock.

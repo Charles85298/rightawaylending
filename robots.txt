@@ -1,7 +1,5 @@
 User-agent: *
 Allow: /
-Disallow: /maintenance
-Disallow: /500
-Disallow: /launch-status
-Disallow: /ui-components
+Disallow: /launch-status.html
+Disallow: /ui-components.html
 Sitemap: https://rightawaylending.com/sitemap.xml

@@ -3,18 +3,83 @@
   "productionDomain": "https://rightawaylending.com",
   "phone": "(602) 465-2800",
   "phoneHref": "+16024652800",
-  "email": "info@rightawaylending.com",
+  "email": "djaramillo@rightawaylending.com",
   "nmls": "2412327",
-  "analytics": {
-    "provider": "placeholder",
-    "measurementId": ""
-  },
-  "crm": {
-    "provider": "placeholder",
-    "endpoint": ""
-  },
-  "scheduler": {
-    "provider": "placeholder",
-    "embedUrl": ""
-  }
+  "inquiryMode": "on-device",
+  "schedulingMode": "direct-contact",
+  "analyticsEnabled": false,
+  "legalName": "Right Away Lending Corp",
+  "servedStates": [
+    "Arizona",
+    "Florida",
+    "Michigan",
+    "Texas",
+    "Washington"
+  ],
+  "contactWorkflowConfirmed": "2026-09-18",
+  "domainRegistrar": "GoDaddy",
+  "dnsProvider": "Cloudflare",
+  "hostingProvider": "unconfirmed",
+  "hostingProduct": "unconfirmed",
+  "sourceRepository": "https://github.com/Charles85298/rightawaylending",
+  "deploymentIntegration": "Cloudflare Workers",
+  "deploymentIntegrationStatus": "latest upstream commit failed; live domain mapping unverified",
+  "nmlsVerifiedOn": "2026-09-18",
+  "stateLicenses": [
+    {
+      "state": "Arizona",
+      "type": "Mortgage Broker License",
+      "number": "MB-1043256",
+      "status": "Approved",
+      "authorized": true,
+      "statusDate": "2026-09-16",
+      "renewedThrough": "2026"
+    },
+    {
+      "state": "Florida",
+      "type": "Mortgage Broker License",
+      "number": "MBR6277",
+      "status": "Approved",
+      "authorized": true,
+      "statusDate": "2024-01-29",
+      "renewedThrough": "2025"
+    },
+    {
+      "state": "Michigan",
+      "type": "1st Mortgage Broker License",
+      "number": "FL0024815",
+      "status": "Approved",
+      "authorized": true,
+      "statusDate": "2026-04-28",
+      "renewedThrough": "2026"
+    },
+    {
+      "state": "Michigan",
+      "type": "2nd Mortgage Broker Registrant",
+      "number": "SR0025356",
+      "status": "Approved",
+      "authorized": true,
+      "statusDate": "2026-04-28",
+      "renewedThrough": "2026"
+    },
+    {
+      "state": "Texas",
+      "type": "Mortgage Company License",
+      "number": null,
+      "status": "Approved",
+      "authorized": true,
+      "statusDate": "2026-05-21",
+      "renewedThrough": "2026"
+    },
+    {
+      "state": "Washington",
+      "type": "Consumer Loan Company License",
+      "number": "CL-2412327",
+      "status": "Approved",
+      "authorized": true,
+      "statusDate": "2026-05-26",
+      "renewedThrough": "2026"
+    }
+  ],
+  "nmlsSource": "https://www.nmlsconsumeraccess.org/EntityDetails.aspx/COMPANY/2412327"
 }

@@ -1,0 +1,20 @@
+[
+  "404.html", "500.html", "_headers", "_redirects",
+  "accessibility.html", "affordability-calculator.html",
+  "assets/favicon.png", "assets/icon-192.png", "assets/icon-512.png",
+  "assets/manifest.json", "assets/texas-consumer-complaint-notice.pdf",
+  "buyer-guide.html", "closing-costs-guide.html", "conventional-loans.html",
+  "credit-readiness.html", "css/site.css", "css/styles.css", "css/tokens.css",
+  "document-checklist.html", "down-payment-assistance.html", "fha-loans.html",
+  "fha-vs-conventional.html", "first-time-buyers.html", "homebuyer-guide.html",
+  "images/hero-home.jpg", "images/logo-transparent.png",
+  "images/reference-background-1.jpg", "images/right-away-mark-ultra.png",
+  "index.html", "investment-property.html", "js/analytics.js", "js/app.js",
+  "js/calculator.js", "js/home.js", "js/mortgage-math.js", "js/offline.js",
+  "jumbo-loans.html", "launch-status.html", "licensing.html",
+  "loan-qualification-wizard.html", "maintenance.html", "mortgage-comparison.html",
+  "mortgage-glossary.html", "offline.html", "prequalify.html", "privacy.html",
+  "refinance-break-even.html", "refinance.html", "resource-center.html", "robots.txt",
+  "schedule.html", "service-worker.js", "sitemap.xml", "terms.html",
+  "ui-components.html", "usda-loans.html", "va-loans.html"
+]

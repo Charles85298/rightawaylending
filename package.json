@@ -1,0 +1,17 @@
+{
+  "name": "right-away-lending-website",
+  "version": "21.0.0",
+  "private": true,
+  "description": "Right Away Lending complete brand migration",
+  "scripts": {
+    "test": "node --test tests/*.test.cjs tests/*.test.mjs",
+    "check": "node scripts/check-site.cjs && node scripts/check-disclosures.cjs",
+    "check:disclosures": "node scripts/check-disclosures.cjs",
+    "check:hosting": "node scripts/check-hosting.cjs",
+    "build": "node scripts/build.cjs",
+    "start": "node scripts/serve.cjs"
+  },
+  "devDependencies": {
+    "jsdom": "^26.1.0"
+  }
+}

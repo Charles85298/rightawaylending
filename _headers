@@ -4,4 +4,11 @@
   Referrer-Policy: strict-origin-when-cross-origin
   Permissions-Policy: camera=(), microphone=(), geolocation=()
   Strict-Transport-Security: max-age=31536000; includeSubDomains
-  Content-Security-Policy: default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; script-src 'self'; connect-src 'self'; frame-src 'self'; font-src 'self'; base-uri 'self'; form-action 'self'
+  Content-Security-Policy: default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; script-src 'self'; connect-src 'self'; frame-src 'none'; frame-ancestors 'self'; object-src 'none'; font-src 'self'; base-uri 'self'; form-action 'none'; upgrade-insecure-requests
+  Cache-Control: public, max-age=0, must-revalidate
+/service-worker.js
+  Cache-Control: no-cache
+/prequalify
+  Cache-Control: no-store
+/prequalify.html
+  Cache-Control: no-store

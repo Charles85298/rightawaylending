@@ -1,5 +1,7 @@
 # Integration Guide
 
+> Historical v20 planning document, superseded for this release by `LAUNCH-HOLD.md`, `COMPLIANCE-SOURCES.md`, and `RELEASE-VERIFICATION.md`. Brian confirmed phone/email contact and a local worksheet on September 18, 2026. CRM submission, online booking, and advertising analytics are not launch requirements. The instructions below describe possible future work and do not authorize it.
+
 ## CRM
 The current forms are frontend demonstrations and do not transmit personal information.
 

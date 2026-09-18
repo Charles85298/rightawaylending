@@ -1,4 +1,5 @@
-# Normalize HTML URLs to extensionless canonical URLs
+# Workers permits relative source paths only. Host/HTTPS redirects remain edge settings.
+# Preserve existing extensionless URLs and include the two new destinations.
 /index.html / 301
 /accessibility.html /accessibility 301
 /affordability-calculator.html /affordability-calculator 301
@@ -12,6 +13,7 @@
 /fha-vs-conventional.html /fha-vs-conventional 301
 /first-time-buyers.html /first-time-buyers 301
 /homebuyer-guide.html /homebuyer-guide 301
+/investment-property.html /investment-property 301
 /jumbo-loans.html /jumbo-loans 301
 /licensing.html /licensing 301
 /loan-qualification-wizard.html /loan-qualification-wizard 301
@@ -21,9 +23,9 @@
 /prequalify.html /prequalify 301
 /privacy.html /privacy 301
 /refinance-break-even.html /refinance-break-even 301
+/refinance.html /refinance 301
 /resource-center.html /resource-center 301
 /schedule.html /schedule 301
 /terms.html /terms 301
 /usda-loans.html /usda-loans 301
 /va-loans.html /va-loans 301
-

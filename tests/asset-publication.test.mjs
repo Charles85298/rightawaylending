@@ -1,121 +1,83 @@
 import assert from 'node:assert/strict';
-import { createHash } from 'node:crypto';
-import { execFileSync } from 'node:child_process';
-import { readFileSync, statSync } from 'node:fs';
-import { dirname, resolve } from 'node:path';
+import { createRequire } from 'node:module';
+import { readFileSync, readdirSync, mkdtempSync, writeFileSync, mkdirSync, symlinkSync, rmSync } from 'node:fs';
+import { tmpdir } from 'node:os';
+import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import test from 'node:test';
-
+const require = createRequire(import.meta.url);
+const { inventory, controls, validateInventory, assetRules, buildPublic } = require('../scripts/public-assets.cjs');
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
-const baseline = 'dd65de03fb5164d53989a100393219d4420f93a7';
-const rules = readFileSync(resolve(root, '.assetsignore'), 'utf8')
-  .split(/\r?\n/).filter(line => line && !line.startsWith('#'));
-const admitted = rules.slice(1).filter(line => !line.endsWith('/')).map(line => line.slice(2));
-const controls = new Set(['_headers', '_redirects']);
-const publicFiles = admitted;
-const excluded = [
-  '_headers', '_redirects',
-  '.git/HEAD', '.git/config', '.git/index', '.git/FETCH_HEAD', '.git/logs/HEAD',
-  '.git/objects/dd/65de03fb5164d53989a100393219d4420f93a7',
-  '.wrangler/tmp/deploy/no-op-worker.js.map', '.github/workflows/static.yml',
-  '.assetsignore', '.gitignore', 'wrangler.jsonc', 'README.md',
-  'documents/Integration-Guide-v20.md', 'documents/company details.txt',
-  'assets/site-config.json', '.env', '.env.production', '.dev.vars',
-  'assets/.env', 'assets/new-unreviewed.json', 'css/new-unreviewed.css',
-  'js/new-unreviewed.js', 'images/new-unreviewed.png', 'new-unreviewed.html',
-  'tests/asset-publication.test.mjs', 'node_modules/example/index.js',
-  'homepage-mockup.png', 'artifacts/private-receipt.json',
-];
-const git = args => execFileSync('git', args, { cwd: root, maxBuffer: 10 * 1024 * 1024 });
-const digest = bytes => createHash('sha256').update(bytes).digest('hex');
-const sourceBytes = file => git(['show', `${baseline}:${file}`]);
 
-test('allowlist is deny-by-default with only exact, safe file exceptions', () => {
+test('exact inventory admits 34 HTML pages and only 55 public files plus two parsed controls', () => {
+  validateInventory(root, inventory);
+  assert.equal(inventory.length, 57);
+  assert.equal(inventory.filter(file => file.endsWith('.html')).length, 34);
+  assert.deepEqual(inventory.filter(file => file.endsWith('.html')).sort(), readdirSync(root).filter(file => file.endsWith('.html')).sort());
+  for (const file of ['.git/HEAD', '.env', 'assets/site-config.json', 'package.json', 'wrangler.jsonc', 'documents/COMPLIANCE-SOURCES.md']) assert.ok(!inventory.includes(file));
+});
+
+test('both source and output publishing boundaries deny all future unreviewed files', () => {
+  const sourceRules = readFileSync(join(root, '.assetsignore'), 'utf8').split('\n').filter(line => line && !line.startsWith('#'));
+  assert.deepEqual(sourceRules, ['*']);
+  const rules = assetRules(inventory).split('\n').filter(line => line && !line.startsWith('#'));
   assert.equal(rules[0], '*');
-  assert.equal(new Set(rules).size, rules.length);
-  for (const rule of rules.slice(1)) {
-    assert.match(rule, /^!\/[A-Za-z0-9_/-]+(?:\.[A-Za-z0-9]+)?\/?$/);
-    assert.ok(!rule.includes('..'));
-  }
-  assert.equal(admitted.length, 46);
-  for (const file of admitted) assert.ok(statSync(resolve(root, file)).isFile(), file);
+  for (const rule of rules.slice(1)) assert.match(rule, /^!\/[A-Za-z0-9_/-]+(?:\.[A-Za-z0-9]+)?\/?$/);
+  assert.equal(rules.filter(rule => !rule.endsWith('/')).length - 1, 55);
+  assert.ok(!rules.includes('!/_headers'));
+  assert.ok(!rules.includes('!/_redirects'));
 });
 
-test('Git ignore semantics admit only the public inventory and refuse internal/future files', () => {
-  const paths = [...admitted, ...excluded];
-  // No rules are installed in Git config; the override exists for this command only.
-  const result = execFileSync('git', [
-    '-c', 'core.excludesFile=.assetsignore', 'check-ignore', '--no-index',
-    '--non-matching', '--verbose', '-z', '--stdin',
-  ], { cwd: root, input: paths.join('\0') + '\0', encoding: 'utf8' });
-  const fields = result.split('\0');
-  for (let i = 0; i < paths.length; i += 1) {
-    const pattern = fields[i * 4 + 2];
-    assert.equal(fields[i * 4 + 3], paths[i]);
-    assert.equal(pattern.startsWith('!'), admitted.includes(paths[i]), paths[i]);
+test('unsafe and duplicated inventory paths refuse before publication', () => {
+  for (const files of [[], ['index.html', 'index.html'], ['../index.html'], ['.env'], ['/index.html'], ['js\\app.js'], ['documents/COMPLIANCE-SOURCES.md']]) assert.throws(() => validateInventory(root, files));
+});
+
+test('build copies only named files, preserves their bytes, and removes stale generated output', () => {
+  const fixture = mkdtempSync(join(tmpdir(), 'rightaway-publication-'));
+  try {
+    writeFileSync(join(fixture, 'index.html'), '<h1>Synthetic publication test</h1>');
+    writeFileSync(join(fixture, 'private.txt'), 'synthetic-not-public');
+    mkdirSync(join(fixture, 'dist'));
+    writeFileSync(join(fixture, 'dist', 'stale.txt'), 'synthetic-stale-output');
+    buildPublic(fixture, ['index.html']);
+    assert.deepEqual(readdirSync(join(fixture, 'dist')).sort(), ['.assetsignore', 'index.html']);
+    assert.equal(readFileSync(join(fixture, 'dist', 'index.html'), 'utf8'), readFileSync(join(fixture, 'index.html'), 'utf8'));
+    assert.ok(readFileSync(join(fixture, 'artifacts', 'public-files.sha256'), 'utf8').includes('index.html'));
+  } finally { rmSync(fixture, { recursive: true, force: true }); }
+});
+
+test('junction destination and junction source refuse rather than read/write outside the build root', () => {
+  const fixture = mkdtempSync(join(tmpdir(), 'rightaway-publication-links-'));
+  const outside = mkdtempSync(join(tmpdir(), 'rightaway-publication-outside-'));
+  try {
+    writeFileSync(join(fixture, 'index.html'), '<h1>Synthetic</h1>');
+    writeFileSync(join(outside, 'keep.txt'), 'synthetic-preserve');
+    writeFileSync(join(outside, 'app.js'), '// synthetic outside source');
+    symlinkSync(outside, join(fixture, 'dist'), 'junction');
+    assert.throws(() => buildPublic(fixture, ['index.html']), /Build destination/);
+    assert.equal(readFileSync(join(outside, 'keep.txt'), 'utf8'), 'synthetic-preserve');
+    symlinkSync(outside, join(fixture, 'js'), 'junction');
+    assert.throws(() => validateInventory(fixture, ['js/app.js']), /symbolic links/);
+  } finally {
+    rmSync(join(fixture, 'dist'), { recursive: true, force: true });
+    rmSync(join(fixture, 'js'), { recursive: true, force: true });
+    rmSync(fixture, { recursive: true, force: true });
+    rmSync(outside, { recursive: true, force: true });
   }
 });
 
-test('all previously tracked HTML pages and every admitted file remain byte-identical', () => {
-  const html = git(['ls-tree', '-r', '--name-only', baseline]).toString().trim().split('\n')
-    .filter(file => file.endsWith('.html'));
-  assert.equal(html.length, 32);
-  for (const file of html) assert.ok(admitted.includes(file), file);
-  for (const file of [...admitted, ...controls]) {
-    assert.equal(digest(readFileSync(resolve(root, file))), digest(sourceBytes(file)), file);
-  }
-});
-
-test('existing local page, CSS, JS and manifest dependencies are admitted', () => {
-  const references = [];
-  for (const file of publicFiles.filter(value => /\.(html|css)$/.test(value))) {
-    const text = readFileSync(resolve(root, file), 'utf8');
-    const re = file.endsWith('.html') ? /(?:src|href)\s*=\s*["']([^"']+)["']/g : /url\(\s*["']?([^"')]+)["']?\s*\)/g;
-    for (const match of text.matchAll(re)) {
-      const href = match[1];
-      if (/^(?:[a-z][a-z0-9+.-]*:|\/\/|#)/i.test(href)) continue;
-      const path = decodeURIComponent(new URL(href, `https://site.invalid/${file}`).pathname).slice(1);
-      if (path) references.push({ file, path });
-    }
-  }
-  for (const reference of references) {
-    assert.ok(admitted.includes(reference.path), `${reference.file} -> ${reference.path}`);
-  }
-  const manifest = JSON.parse(readFileSync(resolve(root, 'assets/manifest.json'), 'utf8'));
-  for (const icon of manifest.icons) assert.ok(admitted.includes(`assets/${icon.src}`));
-});
-
-test('explicit Wrangler configuration preserves existing mode without routes or bindings', () => {
-  const config = JSON.parse(readFileSync(resolve(root, 'wrangler.jsonc'), 'utf8'));
+test('Workers configuration selects dist and compatible relative redirects without changing domains', () => {
+  const config = JSON.parse(readFileSync(join(root, 'wrangler.jsonc'), 'utf8'));
   assert.equal(config.name, 'rightawaylending');
   assert.equal(config.compatibility_date, '2026-09-17');
-  assert.deepEqual(config.assets, { directory: '.' });
+  assert.deepEqual(config.assets, { directory: './dist', not_found_handling: '404-page' });
   assert.deepEqual(Object.keys(config).sort(), ['$schema', 'assets', 'compatibility_date', 'name', 'observability']);
+  const redirects = readFileSync(join(root, '_redirects'), 'utf8').split('\n').filter(line => line && !line.startsWith('#'));
+  assert.equal(redirects.length, 29);
+  for (const line of redirects) assert.match(line, /^\/[a-z-]+\.html \/(?:[a-z-]+)? 301$/);
+  assert.equal(controls.size, 2);
+  assert.equal(readFileSync(join(root, '.node-version'), 'utf8').trim(), '24.19.0');
+  for (const workflow of ['verify.yml', 'static.yml']) {
+    assert.match(readFileSync(join(root, '.github', 'workflows', workflow), 'utf8'), /node-version-file: '\.node-version'/);
+  }
 });
-
-const origin = process.env.PUBLIC_ASSET_TEST_ORIGIN;
-if (origin) {
-  const allowedOrigins = new Set([
-    'http://127.0.0.1:8791', 'https://rightawaylending.com',
-    'https://www.rightawaylending.com', 'https://rightawaylending.charles-g-fleming.workers.dev',
-  ]);
-  assert.ok(allowedOrigins.has(origin), 'Test origin must be explicitly in scope.');
-  test('served public files match original source bytes and internal files return 404', { timeout: 120000 }, async () => {
-    const home = await fetch(`${origin}/`, { method: 'HEAD', signal: AbortSignal.timeout(15000) });
-    assert.equal(home.status, 200);
-    assert.equal(home.headers.get('x-content-type-options'), 'nosniff');
-    assert.equal(home.headers.get('content-security-policy'),
-      readFileSync(resolve(root, '_headers'), 'utf8').split('\n')
-        .find(line => line.trim().startsWith('Content-Security-Policy:')).trim().slice('Content-Security-Policy: '.length));
-    for (const file of publicFiles) {
-      const response = await fetch(`${origin}/${file}`, { signal: AbortSignal.timeout(15000) });
-      assert.equal(response.status, 200, file);
-      assert.equal(digest(Buffer.from(await response.arrayBuffer())), digest(sourceBytes(file)), file);
-    }
-    for (const file of excluded) {
-      const response = await fetch(`${origin}/${file}`, { method: 'HEAD', signal: AbortSignal.timeout(15000) });
-      assert.equal(response.status, 404, file);
-    }
-    console.log(`Verified ${publicFiles.length} byte-identical public files and ${excluded.length} refused internal paths at ${origin}`);
-  });
-}
